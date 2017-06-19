@@ -1,0 +1,18 @@
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body  {
+  font-family:'Muli', sans-serif;
+  color: #E9E1CB;
+}
+
+@import
+'partials/header',
+'partials/layout',
+'partials/intro-page',
+'partials/keyframes';

@@ -1,0 +1,40 @@
+h1  {
+  -webkit-animation: neon 1s ease-in-out infinite alternate;
+  -moz-animation: neon 1s ease-in-out infinite alternate;
+  animation: neon 1s ease-in-out infinite alternate;
+  font-family: Pacifico;
+  font-size: 90px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  background-image: url("img/bar.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 130vh;
+  width: 100%;
+  justify-content: center;
+}
+
+.main-content {
+  height: 100%;
+  background-color: #300202;
+  width: 60%;
+  // opacity: .8;
+}
+
+
+.form-wrapper {
+  margin-top: -200px;
+  height: 130vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#gender {
+  margin-left: 50px;
+}
