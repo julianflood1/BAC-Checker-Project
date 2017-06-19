@@ -15,6 +15,7 @@ namespace BloodAlcoholContent.Objects
 
     public Drink(string Name, string DrinkType, double ABV, double Cost, int Id = 0)
     {
+      _id = Id;
       _name = Name;
       _drinkType = DrinkType;
       _abv = ABV;
@@ -40,6 +41,11 @@ namespace BloodAlcoholContent.Objects
     public double GetCost()
     {
       return _cost;
+    }
+
+    public void SetId(int Id)
+    {
+      _id = Id;
     }
     public override bool Equals(System.Object otherDrink)
     {
@@ -82,9 +88,9 @@ namespace BloodAlcoholContent.Objects
         int drinkId = rdr.GetInt32(0);
         string drinkName = rdr.GetString(1);
         string drinkType = rdr.GetString(2);
-        double drinkABV = rdr.GetDouble(3);
-        double drinkCost = rdr.GetDouble(4);
-        Drink newDrink = new Drink(drinkName, drinkType, drinkABV, drinkCost, drinkId);
+        decimal drinkABV = rdr.GetDecimal(3);
+        decimal drinkCost = rdr.GetDecimal(4);
+        Drink newDrink = new Drink(drinkName, drinkType, Convert.ToDouble(drinkABV), Convert.ToDouble(drinkCost), drinkId);
         allDrinks.Add(newDrink);
       }
       if (rdr != null)
@@ -97,6 +103,89 @@ namespace BloodAlcoholContent.Objects
       }
       return allDrinks;
     }
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
 
+      SqlCommand cmd = new SqlCommand("INSERT INTO drinks (name, drink_type, abv, cost) OUTPUT INSERTED.id VALUES (@DrinkName, @DrinkType, @DrinkABV, @DrinkCost)", conn);
+
+      SqlParameter nameParam = new SqlParameter();
+      nameParam.ParameterName = "@DrinkName";
+      nameParam.Value = this.GetName();
+
+      SqlParameter typeParam = new SqlParameter();
+      typeParam.ParameterName = "@DrinkType";
+      typeParam.Value = this.GetDrinkType();
+
+      SqlParameter abvParam = new SqlParameter();
+      abvParam.ParameterName = "@DrinkABV";
+      abvParam.Value = this.GetABV();
+
+      SqlParameter costParam = new SqlParameter();
+      costParam.ParameterName = "@DrinkCost";
+      costParam.Value = this.GetCost();
+
+      cmd.Parameters.Add(nameParam);
+      cmd.Parameters.Add(typeParam);
+      cmd.Parameters.Add(costParam);
+      cmd.Parameters.Add(abvParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public static Drink Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM drinks WHERE id = @DrinkId", conn);
+
+      SqlParameter drinkIdParameter = new SqlParameter();
+      drinkIdParameter.ParameterName = "@DrinkId";
+      drinkIdParameter.Value = id.ToString();
+
+      cmd.Parameters.Add(drinkIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundDrinkId = 0;
+      string foundDrinkName = null;
+      string foundDrinkType = null;
+      decimal foundDrinkABV = 0;
+      decimal foundDrinkCost = 0;
+
+      while(rdr.Read())
+      {
+        foundDrinkId = rdr.GetInt32(0);
+        foundDrinkName = rdr.GetString(1);
+        foundDrinkType = rdr.GetString(2);
+        foundDrinkABV = rdr.GetDecimal(3);
+        foundDrinkCost = rdr.GetDecimal(4);
+      }
+      Drink foundDrink = new Drink(foundDrinkName, foundDrinkType, Convert.ToDouble(foundDrinkABV), Convert.ToDouble(foundDrinkCost), foundDrinkId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return foundDrink;
+    }
   }
 }
