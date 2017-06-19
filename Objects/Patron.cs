@@ -11,17 +11,18 @@ namespace BloodAlcoholContent.Objects
     private int _id;
     private string _name;
     private string _gender;
-    private int _weight;
-    private int _height;
-    private decimal _bmi = 26.5M;
+    private decimal _weight;
+    private decimal _height;
+    private decimal _bmi = 0.00M;
 
-    public Patron(string Name, string Gender, int Weight, int Height, int Id = 0)
+    public Patron(string Name, string Gender, decimal Weight, decimal Height, decimal BMI = 0.00M, int Id = 0)
     {
       _id = Id;
       _name = Name;
       _gender = Gender;
       _weight = Weight;
       _height = Height;
+      _bmi = BMI;
     }
 
     public string GetName()
@@ -32,20 +33,18 @@ namespace BloodAlcoholContent.Objects
     {
       return _gender;
     }
-    public int GetHeight()
+    public decimal GetHeight()
     {
       return _height;
     }
-    public int GetWeight()
+    public decimal GetWeight()
     {
       return _weight;
     }
     public decimal GetBMI()
     {
-      // _bmi = Math.Round(_weight / ((_height * _height) * 703), 2);
-      // _bmi = _weight / ((_height * _height) * 703);
-      // Console.WriteLine(_weight);
-      // Console.WriteLine(_height);
+
+      _bmi = Math.Round(((_weight / (_height * _height)) * 703), 4);
       return _bmi;
     }
     public int GetId()
@@ -67,7 +66,8 @@ namespace BloodAlcoholContent.Objects
         bool genderEquality = this.GetGender() == newPatron.GetGender();
         bool weightEquality = this.GetWeight() == newPatron.GetWeight();
         bool heightEquality = this.GetHeight() == newPatron.GetHeight();
-        return (idEquality && nameEquality && genderEquality && weightEquality && heightEquality);
+        bool bmiEquality = this.GetBMI() == newPatron.GetBMI();
+        return (idEquality && nameEquality && genderEquality && weightEquality && heightEquality && bmiEquality);
       }
     }
 //MAYBE SETTERS
@@ -97,9 +97,10 @@ namespace BloodAlcoholContent.Objects
         int patronId = rdr.GetInt32(0);
         string patronName = rdr.GetString(1);
         string patronGender = rdr.GetString(2);
-        int patronWeight = rdr.GetInt32(3);
-        int patronHeight = rdr.GetInt32(4);
-        Patron newPatron = new Patron(patronName, patronGender, patronWeight, patronHeight, patronId);
+        decimal patronWeight = rdr.GetInt32(3);
+        decimal patronHeight = rdr.GetInt32(4);
+        decimal patronBMI = rdr.GetDecimal(5);
+        Patron newPatron = new Patron(patronName, patronGender, patronWeight, patronHeight, patronBMI, patronId);
         allPatrons.Add(newPatron);
       }
       if (rdr != null)
@@ -118,7 +119,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO patrons (name, gender, height, weight, bmi) OUTPUT INSERTED.id VALUES (@PatronName, @PatronGender, @PatronHeight, @PatronWeight, @PatronBMI)", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO patrons (name, gender, weight, height, bmi) OUTPUT INSERTED.id VALUES (@PatronName, @PatronGender, @PatronWeight, @PatronHeight, @PatronBMI)", conn);
 
       SqlParameter nameParam = new SqlParameter();
       nameParam.ParameterName = "@PatronName";
@@ -145,7 +146,7 @@ namespace BloodAlcoholContent.Objects
       cmd.Parameters.Add(weightParam);
       cmd.Parameters.Add(heightParam);
       cmd.Parameters.Add(bmiParam);
-      Console.WriteLine("this.GetBMI in Save: " + bmiParam.Value);
+      // Console.WriteLine("this.GetBMI in Save: " + bmiParam.Value);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -181,18 +182,20 @@ namespace BloodAlcoholContent.Objects
       int foundPatronId = 0;
       string foundPatronName = null;
       string foundPatronGender = null;
-      int foundPatronHeight = 0;
-      int foundPatronWeight = 0;
+      decimal foundPatronWeight = 0.00M;
+      decimal foundPatronHeight = 0.00M;
+      decimal foundPatronBMI = 0.00M;
 
       while(rdr.Read())
       {
         foundPatronId = rdr.GetInt32(0);
         foundPatronName = rdr.GetString(1);
         foundPatronGender = rdr.GetString(2);
-        foundPatronHeight = rdr.GetInt32(3);
-        foundPatronWeight = rdr.GetInt32(4);
+        foundPatronWeight = rdr.GetInt32(3);
+        foundPatronHeight = rdr.GetInt32(4);
+        foundPatronBMI = rdr.GetDecimal(5);
       }
-      Patron foundPatron = new Patron(foundPatronName, foundPatronGender, foundPatronHeight, foundPatronWeight, foundPatronId);
+      Patron foundPatron = new Patron(foundPatronName, foundPatronGender, foundPatronWeight, foundPatronHeight, foundPatronBMI, foundPatronId);
 
       if (rdr != null)
       {
