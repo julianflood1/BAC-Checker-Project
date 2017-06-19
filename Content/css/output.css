@@ -9,7 +9,7 @@ body {
   font-family: 'Muli', sans-serif;
   color: #E9E1CB; }
 
-label {
+label, h3 {
   font-size: 30px;
   padding-right: 10px; }
 
@@ -18,22 +18,25 @@ h1 {
   -moz-animation: neon 1s ease-in-out infinite alternate;
   animation: neon 1s ease-in-out infinite alternate;
   font-family: Pacifico;
-  font-size: 90px;
-  text-align: center; }
+  font-size: 100px;
+  text-align: center;
+  margin-bottom: 200px; }
 
 .container {
   display: flex;
   background-image: url("img/bar.jpg");
   background-size: cover;
   background-position: center;
-  height: 130vh;
+  height: 150vh;
   width: 100%;
   justify-content: center; }
 
 .main-content {
   height: 100%;
   background-color: #300202;
-  width: 60%; }
+  width: 60%;
+  opacity: .8;
+  border: 1px solid white; }
 
 .form-wrapper {
   margin-top: -200px;
@@ -45,7 +48,34 @@ h1 {
   align-items: center; }
 
 #gender {
-  margin-left: 50px; }
+  margin-left: 27%;
+  font-size: 150%; }
+
+#feet, #inches {
+  font-size: 140%; }
+
+label {
+  padding: 10px; }
+
+input {
+  width: 200px;
+  height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 25px; }
+
+button {
+  width: 200px;
+  height: 50px;
+  font-family: 'Muli', sans-serif;
+  font-size: 25px;
+  border-radius: 1%;
+  color: #300202;
+  font-weight: 700;
+  background-color: white; }
+
+.height h3 {
+  text-align: center; }
 
 @keyframes neon {
   from {
