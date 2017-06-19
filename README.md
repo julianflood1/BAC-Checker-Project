@@ -1,4 +1,4 @@
-# _Band Tracker_
+# _BAC Checker_
 
 #### _Project created for Epicodus Group Project, C-Sharp/CSS - Week Five. June 22, 2017_
 
