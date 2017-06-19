@@ -6,7 +6,7 @@
 
 ## Description
 
-_DESCRIPTION._
+_A lighthearted app to check your Blood Alcohol Content. Two members of this team are in the C# course, and three are in CSS/Design. This app will combine the knowledge of both groups, and allow us to practice communicating with collaborators with different areas of expertise._
 
 ## Program Specifications
 
@@ -18,8 +18,8 @@ _DESCRIPTION._
 ## Wishlist Specifications
 
 1. Add Bartender Class
-2.  Add Food Class
-3.  METRIC BMI conversion
+2. Add Food Class
+3. METRIC BMI conversion
 4. Make ABV more accurate
 
 

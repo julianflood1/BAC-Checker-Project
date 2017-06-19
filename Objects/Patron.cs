@@ -13,6 +13,7 @@ namespace BloodAlcoholContent.Objects
     private string _gender;
     private int _weight;
     private int _height;
+    private decimal _bmi = 26.5M;
 
     public Patron(string Name, string Gender, int Weight, int Height, int Id = 0)
     {
@@ -39,9 +40,13 @@ namespace BloodAlcoholContent.Objects
     {
       return _weight;
     }
-    public int GetBMI()
+    public decimal GetBMI()
     {
-      return ((_weight) / (_height * _height)) * 703;
+      // _bmi = Math.Round(_weight / ((_height * _height) * 703), 2);
+      // _bmi = _weight / ((_height * _height) * 703);
+      // Console.WriteLine(_weight);
+      // Console.WriteLine(_height);
+      return _bmi;
     }
     public int GetId()
     {
@@ -140,6 +145,7 @@ namespace BloodAlcoholContent.Objects
       cmd.Parameters.Add(weightParam);
       cmd.Parameters.Add(heightParam);
       cmd.Parameters.Add(bmiParam);
+      Console.WriteLine("this.GetBMI in Save: " + bmiParam.Value);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 

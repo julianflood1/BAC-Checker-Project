@@ -97,8 +97,20 @@ namespace BloodAlcoholContentTests
 
       List<Drink> savedDrinks = testPatron.GetDrinks();
       List<Drink> testList = new List<Drink> {testDrink1, testDrink2};
-      
+      // Console.WriteLine(Convert.ToDouble(testPatron.GetBMI()));
       Assert.Equal(testList, savedDrinks);
+    }
+    [Fact]
+    public void Test_ReturnsPatronsBMI()
+    {
+
+      Patron testPatron = new Patron("Tiger Woods", "M", 70, 185);
+      testPatron.Save();
+      decimal testPatronBMI = testPatron.GetBMI();
+
+      decimal expectedBMI = 26.5M;
+      // Console.WriteLine(Convert.ToDouble(testPatron.GetBMI()));
+      Assert.Equal(expectedBMI, testPatronBMI);
     }
   }
 }
