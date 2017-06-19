@@ -17,7 +17,7 @@ namespace BloodAlcoholContentTests
     }
     public void Dispose()
     {
-     Patron.DeleteAll();
+    //  Patron.DeleteAll();
      Drink.DeleteAll();
     }
 
@@ -31,8 +31,8 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_EqualityOfPatronObjects()
     {
-     Patron firstPatron = new Patron("Sharon Needles", "F", 72, 180);
-     Patron secondPatron = new Patron("Sharon Needles", "F", 72, 180);
+     Patron firstPatron = new Patron("Sharon Needles", "F", 125, 65);
+     Patron secondPatron = new Patron("Sharon Needles", "F", 125, 65);
      Assert.Equal(firstPatron, secondPatron);
     }
 
@@ -40,7 +40,7 @@ namespace BloodAlcoholContentTests
     public void Test_SavesToDatabase()
     {
       //Arrange
-      Patron testPatron = new Patron("Doneld Drumpf", "T", 66, 250);
+      Patron testPatron = new Patron("Doneld Drumpf", "T", 200, 60);
       testPatron.Save();
 
       //Act
@@ -55,7 +55,7 @@ namespace BloodAlcoholContentTests
     public void Test_IdAssignationWorksAsPlanned()
     {
       //Arrange
-      Patron testPatron = new Patron("Gus Gus", "M", 2, 1);
+      Patron testPatron = new Patron("Gus Gus", "M", 160, 50);
       testPatron.Save();
 
       //Act
@@ -71,7 +71,7 @@ namespace BloodAlcoholContentTests
     public void Test_FindsPatronInDatabaseWorks()
     {
       //Arrange
-      Patron testPatron = new Patron("Big Jim", "F", 61, 125);
+      Patron testPatron = new Patron("Big Jim", "F", 125, 65);
       testPatron.Save();
 
       //Act
@@ -85,7 +85,7 @@ namespace BloodAlcoholContentTests
     public void Test_ReturnsAllDrinksAddedToPatronsList()
     {
 
-      Patron testPatron = new Patron("Tiger Woods", "M", 70, 185);
+      Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
       Drink testDrink1 = new Drink("Patron", "Neat", 2, 10);
       testDrink1.Save();
@@ -104,11 +104,11 @@ namespace BloodAlcoholContentTests
     public void Test_ReturnsPatronsBMI()
     {
 
-      Patron testPatron = new Patron("Tiger Woods", "M", 70, 185);
+      Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
       decimal testPatronBMI = testPatron.GetBMI();
 
-      decimal expectedBMI = 26.5M;
+      decimal expectedBMI = Math.Round(((testPatron.GetWeight() / (testPatron.GetHeight() * testPatron.GetHeight())) * 703), 4);
       // Console.WriteLine(Convert.ToDouble(testPatron.GetBMI()));
       Assert.Equal(expectedBMI, testPatronBMI);
     }

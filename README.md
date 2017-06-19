@@ -2,7 +2,7 @@
 
 #### _Project created for Epicodus Group Project, C-Sharp/CSS - Week Five. June 22, 2017_
 
-#### By _**David Wilson, Alyssa Moody, Maria, Julien Flood, Jenna Cooper**_
+#### By _**David Wilson, Alyssa Moody, Maria Del Castillo, Julian Flood, Jenna Cooper**_
 
 ## Description
 
@@ -70,4 +70,4 @@ _**Testing:** xUnit._
 
 *MIT license Agreement*
 
-Copyright (c) 2017 **_David Wilson, Alyssa Moody, Maria, Julien Flood, Jenna Cooper_**
+Copyright (c) 2017 **_David Wilson, Alyssa Moody, Maria Del Castillo, Julian Flood, Jenna Cooper_**
