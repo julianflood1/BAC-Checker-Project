@@ -20,6 +20,7 @@ _DESCRIPTION._
 1. Add Bartender Class
 2.  Add Food Class
 3.  METRIC BMI conversion
+4. Make ABV more accurate
 
 
 
@@ -39,7 +40,7 @@ _**From GitHub: Download or clone project repository onto desktop from GitHub.**
 
 _In your preferred database management system (I use SSMS), open the bac_checker.sql file from the project folder. Run the execute command on the file. If this does not work, run the following command in SQLCMD:
 
-CREATE DATABASE bac_checker; GO USE bac_checker; GO CREATE TABLE patrons (id INT IDENTITY(1,1), name VARCHAR(100), gender VARCHAR(25), weight INT, height INT, bmi INT); GO CREATE TABLE drinks (id INT IDENTITY(1,1), name VARCHAR(50), drink_type VARCHAR(50), abv INT, cost INT); GO CREATE TABLE orders (id INT IDENTITY(1,1), patrons_id INT, drinks_id INT); GO
+CREATE DATABASE bac_checker; GO USE bac_checker; GO CREATE TABLE patrons (id INT IDENTITY(1,1), name VARCHAR(100), gender VARCHAR(25), weight INT, height INT, bmi INT); GO CREATE TABLE drinks (id INT IDENTITY(1,1), name VARCHAR(50), drink_type VARCHAR(50), abv DECIMAL(3,1), cost DECIMAL(4,2)); GO CREATE TABLE orders (id INT IDENTITY(1,1), patrons_id INT, drinks_id INT); GO
 
 _To create test database, in your preferred database management system (I use SSMS) open the bac_checker_test.sql file from the project folder. Run the execute command on the file. If this does not work, back up and restore the database as a test database in your preferred database management system.
 

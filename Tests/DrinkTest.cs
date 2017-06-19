@@ -18,6 +18,7 @@ namespace BloodAlcoholContentTests
     public void Dispose()
     {
      Drink.DeleteAll();
+     Patron.DeleteAll();
     }
 
     [Fact]
@@ -33,6 +34,49 @@ namespace BloodAlcoholContentTests
      Drink firstDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
      Drink secondDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
      Assert.Equal(firstDrink, secondDrink);
+    }
+    [Fact]
+    public void Test_SavesToDatabase()
+    {
+      //Arrange
+      Drink testDrink = new Drink("Four Horsemen", "Mixed", 4, 13.00);
+      testDrink.Save();
+
+      //Act
+      List<Drink> result = Drink.GetAll();
+      List<Drink> testList = new List<Drink>{testDrink};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+    [Fact]
+    public void Test_IdAssignationWorksAsPlanned()
+    {
+      //Arrange
+      Drink testDrink = new Drink("Four Horsemen", "Mixed", 4, 13.00);
+      testDrink.Save();
+
+      //Act
+      Drink savedDrink = Drink.GetAll()[0];
+
+      int result = savedDrink.GetId();
+      int testId = testDrink.GetId();
+
+      //Assert
+      Assert.Equal(testId, result);
+    }
+    [Fact]
+    public void Test_FindsDrinkInDatabaseWorks()
+    {
+      //Arrange
+      Drink testDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
+      testDrink.Save();
+
+      //Act
+      Drink result = Drink.Find(testDrink.GetId());
+
+      //Assert
+      Assert.Equal(testDrink, result);
     }
   }
 }
