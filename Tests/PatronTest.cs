@@ -17,23 +17,25 @@ namespace BloodAlcoholContentTests
     }
     public void Dispose()
     {
-     Patron.DeleteAll();
-     Drink.DeleteAll();
+      Bartender.DeleteAll();
+      Patron.DeleteAll();
+      Drink.DeleteAll();
+      Food.DeleteAll();
     }
 
     [Fact]
     public void Test_DatabaseEmptyAtFirst()
     {
-     int result = Patron.GetAll().Count;
-     Assert.Equal(0, result);
+      int result = Patron.GetAll().Count;
+      Assert.Equal(0, result);
     }
 
     [Fact]
     public void Test_EqualityOfPatronObjects()
     {
-     Patron firstPatron = new Patron("Sharon Needles", "F", 125, 65);
-     Patron secondPatron = new Patron("Sharon Needles", "F", 125, 65);
-     Assert.Equal(firstPatron, secondPatron);
+      Patron firstPatron = new Patron("Sharon Needles", "F", 125, 65);
+      Patron secondPatron = new Patron("Sharon Needles", "F", 125, 65);
+      Assert.Equal(firstPatron, secondPatron);
     }
 
     [Fact]

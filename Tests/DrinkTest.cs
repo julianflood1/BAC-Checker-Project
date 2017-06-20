@@ -17,23 +17,25 @@ namespace BloodAlcoholContentTests
     }
     public void Dispose()
     {
-     Drink.DeleteAll();
-     Patron.DeleteAll();
+      Bartender.DeleteAll();
+      Drink.DeleteAll();
+      Patron.DeleteAll();
+      Food.DeleteAll();
     }
 
     [Fact]
     public void Test_DatabaseEmptyAtFirst()
     {
-     int result = Drink.GetAll().Count;
-     Assert.Equal(0, result);
+      int result = Drink.GetAll().Count;
+      Assert.Equal(0, result);
     }
 
     [Fact]
     public void Test_EqualityOfDrinkObjects()
     {
-     Drink firstDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
-     Drink secondDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
-     Assert.Equal(firstDrink, secondDrink);
+      Drink firstDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
+      Drink secondDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
+      Assert.Equal(firstDrink, secondDrink);
     }
     [Fact]
     public void Test_SavesToDatabase()
