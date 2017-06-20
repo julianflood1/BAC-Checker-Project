@@ -7,7 +7,7 @@
   <ul>
     @foreach (var patron in @Model)
     {
-      <li><a href="/patrons/@patron.GetId()"></a> @patron.GetName() | @patron.GetBMI()</li>
+      <li><a href="/patrons/@patron.GetId()"> @patron.GetName() | @patron.GetBMI()</a></li>
     }
   </ul>
 }
