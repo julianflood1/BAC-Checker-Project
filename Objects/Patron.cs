@@ -14,6 +14,7 @@ namespace BloodAlcoholContent.Objects
     private decimal _weight;
     private decimal _height;
     private decimal _bmi = 0.00M;
+    private DateTime _saveStaticTime;
 
     public Patron(string Name, string Gender, decimal Weight, decimal Height, decimal BMI = 0.00M, int Id = 0)
     {
@@ -51,6 +52,15 @@ namespace BloodAlcoholContent.Objects
     {
       return _id;
     }
+    public DateTime GetDateTimeNow()
+    {
+      return _saveStaticTime;
+    }
+//WILL BE SET ON BUTTON PRESS IN NANCY
+    public void SetDateTimeNow()
+    {
+      _saveStaticTime = DateTime.Now;
+    }
 
     public override bool Equals(System.Object otherPatron)
     {
@@ -70,9 +80,7 @@ namespace BloodAlcoholContent.Objects
         return (idEquality && nameEquality && genderEquality && weightEquality && heightEquality && bmiEquality);
       }
     }
-//MAYBE SETTERS
 
-//END MAYBE SETTERS
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
@@ -80,6 +88,15 @@ namespace BloodAlcoholContent.Objects
       SqlCommand cmd = new SqlCommand("DELETE FROM patrons;", conn);
       cmd.ExecuteNonQuery();
       conn.Close();
+    }
+
+    public double GetTimeDifference(DateTime userDateTime)
+    {
+
+      TimeSpan timeDiff = userDateTime - this.GetDateTimeNow();
+      double fixedTimeDiff = Math.Round(timeDiff.TotalMinutes);
+      Console.WriteLine(fixedTimeDiff);
+      return fixedTimeDiff;
     }
 
     public static List<Patron> GetAll()
@@ -274,7 +291,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT drinks.abv, drinks.instances FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) WHERE patrons.id = @PatronId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT SUM(drinks.abv), SUM(drinks.instances) FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) WHERE patrons.id = @PatronId;", conn);
 
       SqlParameter patronIdParameter = new SqlParameter();
       patronIdParameter.ParameterName = "@PatronId";
@@ -306,37 +323,18 @@ namespace BloodAlcoholContent.Objects
 
       if (userGender == "M")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
       }
       if (userGender == "F")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
       }
       if (userGender == "X")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
       }
 
-      return patronBAC;
+      return Math.Round(patronBAC, 4);
     }
-
-    public DateTime GetStaticTime(DateTime userDateTime)
-    {
-      DateTime saveStaticTime = DateTime.Now;
-      Console.WriteLine("GetStaticTime: " + saveStaticTime);
-      return saveStaticTime;
-    }
-
-    public DateTime GetNewTime(DateTime userDateTime)
-    {
-      DateTime saveNewTime = userDateTime;
-      Console.WriteLine("GetNewTime: " + saveNewTime);
-      return saveNewTime;
-    }
-
-      // get patrons.weight and patrons.gender
-      // MaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .73)) - (.015 * (Time Passed))
-      // FemaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .66)) - (.015 * (Time Passed))
-      // output BAC based on gender
   }
 }

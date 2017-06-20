@@ -17,23 +17,25 @@ namespace BloodAlcoholContentTests
     }
     public void Dispose()
     {
-     Patron.DeleteAll();
-     Drink.DeleteAll();
+      Bartender.DeleteAll();
+      Patron.DeleteAll();
+      Drink.DeleteAll();
+      Food.DeleteAll();
     }
 
     [Fact]
     public void Test_DatabaseEmptyAtFirst()
     {
-     int result = Patron.GetAll().Count;
-     Assert.Equal(0, result);
+      int result = Patron.GetAll().Count;
+      Assert.Equal(0, result);
     }
 
     [Fact]
     public void Test_EqualityOfPatronObjects()
     {
-     Patron firstPatron = new Patron("Sharon Needles", "F", 125, 65);
-     Patron secondPatron = new Patron("Sharon Needles", "F", 125, 65);
-     Assert.Equal(firstPatron, secondPatron);
+      Patron firstPatron = new Patron("Sharon Needles", "F", 125, 65);
+      Patron secondPatron = new Patron("Sharon Needles", "F", 125, 65);
+      Assert.Equal(firstPatron, secondPatron);
     }
 
     [Fact]
@@ -87,9 +89,9 @@ namespace BloodAlcoholContentTests
 
       Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
-      Drink testDrink1 = new Drink("Patron", "Neat", .40, 10, 2);
+      Drink testDrink1 = new Drink("Patron", "Neat", 40, 10, 2);
       testDrink1.Save();
-      Drink testDrink2 = new Drink("Car Bomb", "Mixed", .40, 12, 3);
+      Drink testDrink2 = new Drink("Car Bomb", "Mixed", 40, 12, 3);
       testDrink2.Save();
 
       testPatron.AddDrinkToOrdersTable(testDrink1);
@@ -115,7 +117,7 @@ namespace BloodAlcoholContentTests
     {
 
       Patron testPatron = new Patron("Gary Busey", "M", 220, 72);
-      Drink testDrink = new Drink("Long Island Iced Tea", "Mixed", .40, 10, 4);
+      Drink testDrink = new Drink("Long Island Iced Tea", "Mixed", 40, 10, 4);
       testPatron.Save();
       testDrink.Save();
 
@@ -123,19 +125,21 @@ namespace BloodAlcoholContentTests
 
       decimal testPatronBAC = testPatron.GetPatronBAC();
 
-      decimal expectedBAC = 4;
+      decimal expectedBAC = Math.Round((((Convert.ToDecimal(testDrink.GetABV())/100M * testDrink.GetInstances()) * 5.14M)/(testPatron.GetWeight() * .73M) - (.015M * 1M)), 4);
 
       Assert.Equal(expectedBAC, testPatronBAC);
     }
     [Fact]
-    public void Test_DateTimeThingy()
+    public void Test_ReturnsTimeDifference()
     {
       Patron testPatron = new Patron("Kronk", "M", 250, 78);
-      DateTime testDateTime = DateTime.Now;
-      DateTime testDateTime2 = new DateTime(2017, 6, 20, 13, 00, 00);
-      Console.WriteLine((testPatron.GetNewTime(testDateTime2) - testPatron.GetStaticTime(testDateTime)).GetType());
-      Console.WriteLine(testPatron.GetNewTime(testDateTime2) - testPatron.GetStaticTime(testDateTime));
-      Assert.Equal(testPatron.GetStaticTime(testDateTime), testPatron.GetNewTime(testDateTime2));
+      testPatron.Save();
+      DateTime testDateTime2 = new DateTime(2017, 6, 20, 16, 00, 00);
+      testPatron.SetDateTimeNow();
+      double number = Math.Round((testDateTime2 - testPatron.GetDateTimeNow()).TotalMinutes);
+
+      Console.WriteLine(testPatron.GetDateTimeNow());
+      Assert.Equal(number,  testPatron.GetTimeDifference(testDateTime2));
     }
   }
 }
