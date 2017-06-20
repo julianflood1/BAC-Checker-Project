@@ -63,7 +63,7 @@ h1 {
   background-image: url("img/bar.jpg");
   background-size: cover;
   background-position: center;
-  height: 110vh;
+  height: 140vh;
   width: 100%;
   justify-content: center; }
 
@@ -106,6 +106,10 @@ form {
   width: 250px;
   background-color: #E9E1CB; }
 
+#main-form {
+  padding-top: 60px;
+  height: 10%; }
+
 label {
   padding: 30px; }
 
@@ -139,7 +143,8 @@ button {
 
 #add-drink {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  margin-bottom: 100px; }
 
 .submit-btn {
   border-radius: 10px;
