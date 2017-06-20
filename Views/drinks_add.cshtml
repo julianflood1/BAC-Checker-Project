@@ -1,0 +1,20 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<p>DRINK INFO:</p>
+<form action="/drinks/add" method="post">
+  <label for="drink-name">Name:</label>
+  <input type="text" name="drink-name" id="drink-name">
+  <label for="drink-type">Type:</label>
+  <input type="text" name="drink-type" id="drink-type">
+  <label for="drink-abv">ABV(%):</label>
+  <input type="number" name="drink-abv" id="drink-abv">
+  <label for="drink-instances">Amount of Alcohol(oz):</label>
+  <input type="number" name="drink-instances" id="drink-instances">
+  <label for="drink-cost">Cost($):</label>
+  <input type="number" name="drink-cost" id="drink-cost">
+  <button type="submit">Submit</button>
+</form>
+
+<p><a href="/drinks">View all Drinks</a></p>
+<p><a href="/">Home</a></p>

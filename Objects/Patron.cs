@@ -232,7 +232,8 @@ namespace BloodAlcoholContent.Objects
         string drinkType = rdr.GetString(2);
         decimal drinkABV = rdr.GetDecimal(3);
         decimal drinkCost = rdr.GetDecimal(4);
-        Drink newDrink = new Drink(drinkName, drinkType, Convert.ToDouble(drinkABV), Convert.ToDouble(drinkCost), drinkId);
+        int drinkInstances = rdr.GetInt32(5);
+        Drink newDrink = new Drink(drinkName, drinkType, Convert.ToDouble(drinkABV), Convert.ToDouble(drinkCost), drinkInstances, drinkId);
         drinks.Add(newDrink);
       }
       if (rdr != null)
@@ -268,6 +269,74 @@ namespace BloodAlcoholContent.Objects
         conn.Close();
       }
     }
+    public decimal GetPatronBAC()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
 
+      SqlCommand cmd = new SqlCommand("SELECT drinks.abv, drinks.instances FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) WHERE patrons.id = @PatronId;", conn);
+
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId().ToString();
+
+
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      decimal userWeight = this.GetWeight();
+      string userGender = this.GetGender();
+      decimal drinkABV = 0.00M;
+      decimal patronBAC = 0.0000M;
+      int drinkInstances = 0;
+      while(rdr.Read())
+      {
+        drinkABV = rdr.GetDecimal(0);
+        drinkInstances = rdr.GetInt32(1);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      if (userGender == "M")
+      {
+        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
+      }
+      if (userGender == "F")
+      {
+        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
+      }
+      if (userGender == "X")
+      {
+        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
+      }
+
+      return patronBAC;
+    }
+
+    public DateTime GetStaticTime(DateTime userDateTime)
+    {
+      DateTime saveStaticTime = DateTime.Now;
+      Console.WriteLine("GetStaticTime: " + saveStaticTime);
+      return saveStaticTime;
+    }
+
+    public DateTime GetNewTime(DateTime userDateTime)
+    {
+      DateTime saveNewTime = userDateTime;
+      Console.WriteLine("GetNewTime: " + saveNewTime);
+      return saveNewTime;
+    }
+
+      // get patrons.weight and patrons.gender
+      // MaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .73)) - (.015 * (Time Passed))
+      // FemaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .66)) - (.015 * (Time Passed))
+      // output BAC based on gender
   }
 }

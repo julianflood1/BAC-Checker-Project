@@ -31,15 +31,15 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_EqualityOfDrinkObjects()
     {
-     Drink firstDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
-     Drink secondDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
+     Drink firstDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
+     Drink secondDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
      Assert.Equal(firstDrink, secondDrink);
     }
     [Fact]
     public void Test_SavesToDatabase()
     {
       //Arrange
-      Drink testDrink = new Drink("Four Horsemen", "Mixed", 4, 13.00);
+      Drink testDrink = new Drink("Four Horsemen", "Mixed", .40, 13.00, 4);
       testDrink.Save();
 
       //Act
@@ -53,7 +53,7 @@ namespace BloodAlcoholContentTests
     public void Test_IdAssignationWorksAsPlanned()
     {
       //Arrange
-      Drink testDrink = new Drink("Four Horsemen", "Mixed", 4, 13.00);
+      Drink testDrink = new Drink("Four Horsemen", "Mixed", .40, 13.00, 4);
       testDrink.Save();
 
       //Act
@@ -69,7 +69,7 @@ namespace BloodAlcoholContentTests
     public void Test_FindsDrinkInDatabaseWorks()
     {
       //Arrange
-      Drink testDrink = new Drink("Negroni", "Mixed", 1.5, 11.50);
+      Drink testDrink = new Drink("Negroni", "Mixed", .40, 11.50, 2);
       testDrink.Save();
 
       //Act

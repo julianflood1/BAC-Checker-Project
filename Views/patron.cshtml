@@ -2,8 +2,27 @@
   Layout="Shared/_Layout.cshtml";
 }
 
-<p>Howdy, my name is @Model.GetName().</p>
+<p>Howdy, my name is @Model["patron"].GetName().</p>
 
-<p>I'm a cool person yay!</p>
+<h2>ADD DRINK METER HERE</h2>
+
+<form action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
+  <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+  <select name="drink-id">
+    @foreach (var chosenDrink in @Model["allDrinks"])
+    {
+      <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+    }
+  </select>
+  <button type="submit">ADD DRINK</button>
+</form>
+
+<p>This is what I've drinkity drank so far:</p>
+<ul>
+  @foreach (var patronDrinks in @Model["patronDrinks"])
+  {
+    <li>@patronDrinks.GetName()</li>
+  }
+</ul>
 
 <p><a href="/">HOME</a></p>

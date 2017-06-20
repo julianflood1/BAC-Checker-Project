@@ -20,7 +20,7 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 1. Add Bartender Class
 2. Add Food Class
 3. METRIC BMI conversion
-4. Make ABV more accurate
+4. Make instances more accurate (turn to decimal)
 
 
 

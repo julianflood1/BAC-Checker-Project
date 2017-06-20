@@ -11,15 +11,19 @@ namespace BloodAlcoholContent.Objects
     private string _drinkType;
     private double _abv;
     private double _cost;
+    private int _instances;
     private int _id;
 
-    public Drink(string Name, string DrinkType, double ABV, double Cost, int Id = 0)
+    private decimal _ozAlcohol = .6M;
+
+    public Drink(string Name, string DrinkType, double ABV, double Cost, int Instances, int Id = 0)
     {
       _id = Id;
       _name = Name;
       _drinkType = DrinkType;
       _abv = ABV;
       _cost = Cost;
+      _instances = Instances;
     }
 
     public int GetId()
@@ -42,6 +46,14 @@ namespace BloodAlcoholContent.Objects
     {
       return _cost;
     }
+    public int GetInstances()
+    {
+      return _instances;
+    }
+    public decimal GetOzAlcohol()
+    {
+      return _ozAlcohol;
+    }
 
     public void SetId(int Id)
     {
@@ -61,7 +73,8 @@ namespace BloodAlcoholContent.Objects
         bool drinkTypeEquality = this.GetDrinkType() == newDrink.GetDrinkType();
         bool ABVEquality = this.GetABV() == newDrink.GetABV();
         bool costEquality = this.GetCost() == newDrink.GetCost();
-        return (idEquality && nameEquality && drinkTypeEquality && ABVEquality && costEquality);
+        bool instancesEquality = this.GetInstances() == newDrink.GetInstances();
+        return (idEquality && nameEquality && drinkTypeEquality && ABVEquality && costEquality && instancesEquality);
       }
     }
     public static void DeleteAll()
@@ -90,7 +103,8 @@ namespace BloodAlcoholContent.Objects
         string drinkType = rdr.GetString(2);
         decimal drinkABV = rdr.GetDecimal(3);
         decimal drinkCost = rdr.GetDecimal(4);
-        Drink newDrink = new Drink(drinkName, drinkType, Convert.ToDouble(drinkABV), Convert.ToDouble(drinkCost), drinkId);
+        int drinkInstances = rdr.GetInt32(5);
+        Drink newDrink = new Drink(drinkName, drinkType, Convert.ToDouble(drinkABV), Convert.ToDouble(drinkCost), drinkInstances, drinkId);
         allDrinks.Add(newDrink);
       }
       if (rdr != null)
@@ -108,7 +122,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO drinks (name, drink_type, abv, cost) OUTPUT INSERTED.id VALUES (@DrinkName, @DrinkType, @DrinkABV, @DrinkCost)", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO drinks (name, drink_type, abv, cost, instances) OUTPUT INSERTED.id VALUES (@DrinkName, @DrinkType, @DrinkABV, @DrinkCost, @DrinkInstances)", conn);
 
       SqlParameter nameParam = new SqlParameter();
       nameParam.ParameterName = "@DrinkName";
@@ -126,10 +140,15 @@ namespace BloodAlcoholContent.Objects
       costParam.ParameterName = "@DrinkCost";
       costParam.Value = this.GetCost();
 
+      SqlParameter instancesParam = new SqlParameter();
+      instancesParam.ParameterName = "@DrinkInstances";
+      instancesParam.Value = this.GetInstances();
+
       cmd.Parameters.Add(nameParam);
       cmd.Parameters.Add(typeParam);
       cmd.Parameters.Add(costParam);
       cmd.Parameters.Add(abvParam);
+      cmd.Parameters.Add(instancesParam);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -166,6 +185,7 @@ namespace BloodAlcoholContent.Objects
       string foundDrinkType = null;
       decimal foundDrinkABV = 0;
       decimal foundDrinkCost = 0;
+      int foundDrinkInstances = 0;
 
       while(rdr.Read())
       {
@@ -174,8 +194,9 @@ namespace BloodAlcoholContent.Objects
         foundDrinkType = rdr.GetString(2);
         foundDrinkABV = rdr.GetDecimal(3);
         foundDrinkCost = rdr.GetDecimal(4);
+        foundDrinkInstances = rdr.GetInt32(5);
       }
-      Drink foundDrink = new Drink(foundDrinkName, foundDrinkType, Convert.ToDouble(foundDrinkABV), Convert.ToDouble(foundDrinkCost), foundDrinkId);
+      Drink foundDrink = new Drink(foundDrinkName, foundDrinkType, Convert.ToDouble(foundDrinkABV), Convert.ToDouble(foundDrinkCost), foundDrinkInstances, foundDrinkId);
 
       if (rdr != null)
       {

@@ -1,0 +1,20 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+@if (@Model.Count != 0)
+{
+  <ul>
+    @foreach (var drink in @Model)
+    {
+      <li><a href="/drinks/@drink.GetId()">@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</a></li>
+    }
+  </ul>
+}
+else
+{
+  <p>AINT NOBODY NOWHERE Y'ALL</p>
+}
+
+<p><a href="/drinks/add">Add A Drink</a></p>
+<p><a href="/">HOME</a></p>
