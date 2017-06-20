@@ -312,8 +312,26 @@ namespace BloodAlcoholContent.Objects
       {
         patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
       }
+      if (userGender == "X")
+      {
+        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
+      }
 
       return patronBAC;
+    }
+
+    public DateTime GetStaticTime(DateTime userDateTime)
+    {
+      DateTime saveStaticTime = DateTime.Now;
+      Console.WriteLine("GetStaticTime: " + saveStaticTime);
+      return saveStaticTime;
+    }
+
+    public DateTime GetNewTime(DateTime userDateTime)
+    {
+      DateTime saveNewTime = userDateTime;
+      Console.WriteLine("GetNewTime: " + saveNewTime);
+      return saveNewTime;
     }
 
       // get patrons.weight and patrons.gender

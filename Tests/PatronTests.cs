@@ -127,5 +127,15 @@ namespace BloodAlcoholContentTests
 
       Assert.Equal(expectedBAC, testPatronBAC);
     }
+    [Fact]
+    public void Test_DateTimeThingy()
+    {
+      Patron testPatron = new Patron("Kronk", "M", 250, 78);
+      DateTime testDateTime = DateTime.Now;
+      DateTime testDateTime2 = new DateTime(2017, 6, 20, 13, 00, 00);
+      Console.WriteLine((testPatron.GetNewTime(testDateTime2) - testPatron.GetStaticTime(testDateTime)).GetType());
+      Console.WriteLine(testPatron.GetNewTime(testDateTime2) - testPatron.GetStaticTime(testDateTime));
+      Assert.Equal(testPatron.GetStaticTime(testDateTime), testPatron.GetNewTime(testDateTime2));
+    }
   }
 }
