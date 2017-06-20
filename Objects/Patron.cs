@@ -274,7 +274,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT drinks.abv, drinks.instances FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) WHERE patrons.id = @PatronId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT SUM(drinks.abv), SUM(drinks.instances) FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) WHERE patrons.id = @PatronId;", conn);
 
       SqlParameter patronIdParameter = new SqlParameter();
       patronIdParameter.ParameterName = "@PatronId";
@@ -306,37 +306,26 @@ namespace BloodAlcoholContent.Objects
 
       if (userGender == "M")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
       }
       if (userGender == "F")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
       }
       if (userGender == "X")
       {
-        patronBAC = (((drinkABV * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
       }
 
-      return patronBAC;
+      return Math.Round(patronBAC, 4);
     }
 
-    public DateTime GetStaticTime(DateTime userDateTime)
+    public double GetTimeDifference(DateTime userDateTime)
     {
       DateTime saveStaticTime = DateTime.Now;
-      Console.WriteLine("GetStaticTime: " + saveStaticTime);
-      return saveStaticTime;
+      TimeSpan timeDiff = userDateTime - saveStaticTime; double fixedTimeDiff = Math.Round(timeDiff.TotalMinutes);
+      Console.WriteLine(fixedTimeDiff);
+      return fixedTimeDiff;
     }
-
-    public DateTime GetNewTime(DateTime userDateTime)
-    {
-      DateTime saveNewTime = userDateTime;
-      Console.WriteLine("GetNewTime: " + saveNewTime);
-      return saveNewTime;
-    }
-
-      // get patrons.weight and patrons.gender
-      // MaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .73)) - (.015 * (Time Passed))
-      // FemaleBAC = ((drinks.abv * 5.14)/(patrons.weight * .66)) - (.015 * (Time Passed))
-      // output BAC based on gender
   }
 }

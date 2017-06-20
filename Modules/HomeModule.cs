@@ -49,6 +49,7 @@ namespace BloodAlcoholContent
         return View["drinks_add.cshtml"];
       };
       Post["/drinks/add"] = _ => {
+        
         Drink newDrink = new Drink(Request.Form["drink-name"], Request.Form["drink-type"], Request.Form["drink-abv"], Request.Form["drink-cost"], Request.Form["drink-instances"]);
         newDrink.Save();
         return View["success.cshtml"];
