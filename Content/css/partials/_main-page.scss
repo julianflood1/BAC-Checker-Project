@@ -1,3 +1,4 @@
+
 #add-drink {
   display: flex;
   justify-content: center;
@@ -7,5 +8,29 @@
   border-radius: 10px;
   height: 80px;
   margin-top: 80px;
-  color: pink;
+  color: white;
+}
+
+#start-drinking button {
+  height: 115px;
+  margin-top: 80px;
+  color: white;
+  line-height: 40px;
+
+}
+
+.add-drink  {
+  align-content: center;
+}
+
+.main-content {
+  height: 100%;
+  // background-color: #300202;
+  background-color: rgba(48, 2,2 , 0.8 );
+  width: 60%;
+  opacity: 1;
+  border: 1px solid #E9E1CB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
