@@ -14,6 +14,7 @@ namespace BloodAlcoholContent.Objects
     private decimal _weight;
     private decimal _height;
     private decimal _bmi = 0.00M;
+    private DateTime _saveStaticTime;
 
     public Patron(string Name, string Gender, decimal Weight, decimal Height, decimal BMI = 0.00M, int Id = 0)
     {
@@ -51,6 +52,15 @@ namespace BloodAlcoholContent.Objects
     {
       return _id;
     }
+    public DateTime GetDateTimeNow()
+    {
+      return _saveStaticTime;
+    }
+//WILL BE SET ON BUTTON PRESS IN NANCY
+    public void SetDateTimeNow()
+    {
+      _saveStaticTime = DateTime.Now;
+    }
 
     public override bool Equals(System.Object otherPatron)
     {
@@ -70,9 +80,7 @@ namespace BloodAlcoholContent.Objects
         return (idEquality && nameEquality && genderEquality && weightEquality && heightEquality && bmiEquality);
       }
     }
-//MAYBE SETTERS
 
-//END MAYBE SETTERS
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
@@ -80,6 +88,15 @@ namespace BloodAlcoholContent.Objects
       SqlCommand cmd = new SqlCommand("DELETE FROM patrons;", conn);
       cmd.ExecuteNonQuery();
       conn.Close();
+    }
+
+    public double GetTimeDifference(DateTime userDateTime)
+    {
+
+      TimeSpan timeDiff = userDateTime - this.GetDateTimeNow();
+      double fixedTimeDiff = Math.Round(timeDiff.TotalMinutes);
+      Console.WriteLine(fixedTimeDiff);
+      return fixedTimeDiff;
     }
 
     public static List<Patron> GetAll()
@@ -318,14 +335,6 @@ namespace BloodAlcoholContent.Objects
       }
 
       return Math.Round(patronBAC, 4);
-    }
-
-    public double GetTimeDifference(DateTime userDateTime)
-    {
-      DateTime saveStaticTime = DateTime.Now;
-      TimeSpan timeDiff = userDateTime - saveStaticTime; double fixedTimeDiff = Math.Round(timeDiff.TotalMinutes);
-      Console.WriteLine(fixedTimeDiff);
-      return fixedTimeDiff;
     }
   }
 }

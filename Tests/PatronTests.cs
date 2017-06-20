@@ -87,9 +87,9 @@ namespace BloodAlcoholContentTests
 
       Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
-      Drink testDrink1 = new Drink("Patron", "Neat", .40, 10, 2);
+      Drink testDrink1 = new Drink("Patron", "Neat", 40, 10, 2);
       testDrink1.Save();
-      Drink testDrink2 = new Drink("Car Bomb", "Mixed", .40, 12, 3);
+      Drink testDrink2 = new Drink("Car Bomb", "Mixed", 40, 12, 3);
       testDrink2.Save();
 
       testPatron.AddDrinkToOrdersTable(testDrink1);
@@ -115,7 +115,7 @@ namespace BloodAlcoholContentTests
     {
 
       Patron testPatron = new Patron("Gary Busey", "M", 220, 72);
-      Drink testDrink = new Drink("Long Island Iced Tea", "Mixed", .40, 10, 4);
+      Drink testDrink = new Drink("Long Island Iced Tea", "Mixed", 40, 10, 4);
       testPatron.Save();
       testDrink.Save();
 
@@ -123,7 +123,7 @@ namespace BloodAlcoholContentTests
 
       decimal testPatronBAC = testPatron.GetPatronBAC();
 
-      decimal expectedBAC = 4;
+      decimal expectedBAC = Math.Round((((Convert.ToDecimal(testDrink.GetABV())/100M * testDrink.GetInstances()) * 5.14M)/(testPatron.GetWeight() * .73M) - (.015M * 1M)), 4);
 
       Assert.Equal(expectedBAC, testPatronBAC);
     }
@@ -132,9 +132,12 @@ namespace BloodAlcoholContentTests
     {
       Patron testPatron = new Patron("Kronk", "M", 250, 78);
       testPatron.Save();
-      DateTime testDateTime2 = new DateTime(2017, 6, 20, 15, 00, 00);
-      double number = 37;
-      Assert.Equal(number, testPatron.GetTimeDifference(testDateTime2));
+      DateTime testDateTime2 = new DateTime(2017, 6, 20, 16, 00, 00);
+      testPatron.SetDateTimeNow();
+      double number = Math.Round((testDateTime2 - testPatron.GetDateTimeNow()).TotalMinutes);
+
+      Console.WriteLine(testPatron.GetDateTimeNow());
+      Assert.Equal(number,  testPatron.GetTimeDifference(testDateTime2));
     }
   }
 }
