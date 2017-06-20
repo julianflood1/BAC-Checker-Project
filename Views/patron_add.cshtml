@@ -1,0 +1,18 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<p>PATRON INFO:</p>
+<form action="/patrons/add" method="post">
+  <label for="patron-name">Name:</label>
+  <input type="text" name="patron-name" id="patron-name">
+  <label for="patron-gender">Gender:</label>
+  <input type="text" name="patron-gender" id="patron-gender">
+  <label for="patron-weight">Weight:</label>
+  <input type="number" name="patron-weight" id="patron-weight">
+  <label for="patron-height">Height:</label>
+  <input type="number" name="patron-height" id="patron-height">
+  <button type="submit">Submit</button>
+</form>
+
+<p><a href="/patrons">View all Patrons</a></p>
+<p><a href="/">Home</a></p>
