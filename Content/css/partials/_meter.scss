@@ -1,9 +1,3 @@
-.add-drink  {
-  align-content: center;
-}
-
-
-
 
 //METER BAR
 .progress {
@@ -14,9 +8,7 @@
   height: 75px;
   background: #3e3232;
   border-radius: 35px;
-  // animation: neon2 1s ease-in-out infinite alternate;
-  // -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 6px #b6babe, 0 7px rgba(255, 255, 255, 0.1);
-  // box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 6px #b6babe, 0 7px rgba(255, 255, 255, 0.1);
+  border: 1px solid grey;
 }
 
 .progress-bar {
