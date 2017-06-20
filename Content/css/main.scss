@@ -11,8 +11,11 @@ body  {
   color: #E9E1CB;
 }
 
+
 @import
-'partials/_header',
-'partials/_layout',
+'partials/meter',
+'partials/header',
+'partials/layout',
 'partials/intro-page',
+'partials/main-page',
 'partials/keyframes';

@@ -6,3 +6,12 @@
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;
   }
 }
+
+@keyframes neon2 {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fcb724, 0 0 70px #fcb724, 0 0 80px #fcb724, 0 0 100px #fcb724, 0 0 150px #fcb724;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fcb724, 0 0 35px #fcb724, 0 0 40px #fcb724, 0 0 50px #fcb724, 0 0 75px #fcb724;
+  }
+}
