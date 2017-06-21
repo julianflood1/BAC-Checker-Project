@@ -263,6 +263,7 @@ namespace BloodAlcoholContent.Objects
       }
       return drinks;
     }
+
     public void AddDrinkToOrdersTable(Drink newDrink)
     {
       SqlConnection conn = DB.Connection();
@@ -278,6 +279,67 @@ namespace BloodAlcoholContent.Objects
       drinkIdParameter.ParameterName = "@DrinkId";
       drinkIdParameter.Value = newDrink.GetId();
       cmd.Parameters.Add(drinkIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public List<Food> GetFood()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT foods.* FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN foods ON (orders.foods_id = foods.id) WHERE patrons.id = @PatronId;", conn);
+
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId().ToString();
+
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Food> foods = new List<Food>{};
+
+      while(rdr.Read())
+      {
+        int foodId = rdr.GetInt32(0);
+        string foodType = rdr.GetString(1);
+        string foodDescription = rdr.GetString(2);
+        decimal foodCost = rdr.GetDecimal(3);
+        Food newFood = new Food(foodType, foodDescription, Convert.ToDouble(foodCost), foodId);
+        foods.Add(newFood);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return foods;
+    }
+
+    public void AddFoodToOrdersTable(Food newFood)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, foods_id) VALUES (@PatronId, @FoodId);", conn);
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlParameter foodIdParameter = new SqlParameter();
+      foodIdParameter.ParameterName = "@FoodId";
+      foodIdParameter.Value = newFood.GetId();
+      cmd.Parameters.Add(foodIdParameter);
 
       cmd.ExecuteNonQuery();
 

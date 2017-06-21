@@ -91,11 +91,13 @@ namespace BloodAlcoholContent
         newBartender.Save();
         return View["success.cshtml"];
       };
-      //TODO: CREATE BARTENDER PAGE VIEW WITH ORDERS
       Get["/bartenders/{id}"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Bartender selectedBartender = Bartender.Find(parameters.id);
-        return View["bartender.cshtml", selectedBartender];
+        List<Patron> bartenderPatrons = selectedBartender.GetPatrons();
+        model.Add("bartender", selectedBartender);
+        model.Add("bartenderPatrons", bartenderPatrons);
+        return View["bartender.cshtml", model];
       };
       Get["/food"] = _ => {
         List<Food> allFoods = Food.GetAll();

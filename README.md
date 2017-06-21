@@ -27,8 +27,6 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 4. Individual bartender page (bartender.cshtml) - list of their patrons (and meters?)
 5. Full Bar Menu (bar_menu.cshtml) - list of drinks and food
 
-
-
 ## Setup/Installation Requirements
 
 _Runs on the .Net Framework._

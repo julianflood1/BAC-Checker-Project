@@ -142,5 +142,65 @@ namespace BloodAlcoholContent.Objects
       }
       return foundBartender;
     }
+    public void AddPatronToOrdersTable(Patron newPatron)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, bartenders_id) VALUES (@PatronId, @BartenderId);", conn);
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = newPatron.GetId();
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlParameter bartenderIdParameter = new SqlParameter();
+      bartenderIdParameter.ParameterName = "@BartenderId";
+      bartenderIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(bartenderIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public List<Patron> GetPatrons()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT patrons.* FROM bartenders JOIN orders ON (bartenders.id = orders.bartenders_id) JOIN patrons ON (orders.patrons_id = patrons.id) WHERE bartenders.id = @BartenderId;", conn);
+
+      SqlParameter bartenderIdParameter = new SqlParameter();
+      bartenderIdParameter.ParameterName = "@BartenderId";
+      bartenderIdParameter.Value = this.GetId().ToString();
+
+      cmd.Parameters.Add(bartenderIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Patron> patrons = new List<Patron>{};
+
+      while(rdr.Read())
+      {
+        int patronId = rdr.GetInt32(0);
+        string patronName = rdr.GetString(1);
+        string patronGender = rdr.GetString(2);
+        decimal patronWeight = rdr.GetInt32(3);
+        decimal patronHeight = rdr.GetInt32(4);
+        Patron newPatron = new Patron(patronName, patronGender, patronWeight, patronHeight, patronId);
+        patrons.Add(newPatron);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return patrons;
+    }
   }
 }
