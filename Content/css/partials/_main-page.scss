@@ -10,13 +10,11 @@
   border-radius: 10px;
   height: 80px;
   margin-top: 80px;
-  color: white;
 }
 
 #start-drinking button {
   height: 115px;
   margin-top: 80px;
-  color: white;
   line-height: 40px;
 }
 
@@ -25,7 +23,7 @@
 }
 
 .main-content {
-  height: 100%;
+  height: 80%;
   background-color: rgba(48, 2,2 , 0.8 );
   width: 60%;
   opacity: 1;
@@ -35,6 +33,8 @@
   align-items: center;
   padding: 30px;
 }
+
+
 .renderBody {
   display: flex;
   flex-direction: column;
