@@ -71,28 +71,32 @@ html, body {
   -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2); }
 
-h1 {
-  -webkit-animation: neon 1s ease-in-out infinite alternate;
-  -moz-animation: neon 1s ease-in-out infinite alternate;
-  animation: neon 1s ease-in-out infinite alternate;
-  color: #ffd9ef;
-  font-size: 130px;
-  text-align: center;
-  margin-bottom: 90px;
-  font-weight: lighter;
-  font-family: 'pacifico', cursive;
-  transform: rotate(-7deg);
-  line-height: 150px; }
-
-.container {
-  display: flex;
-  background-image: url("img/bar.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 100%;
+.navigation {
   width: 100%;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
   align-items: center; }
+  .navigation .nav-bar {
+    width: 100%;
+    height: 50px;
+    margin-top: -250px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #E9E1CB;
+    display: flex;
+    align-items: center; }
+
+ul {
+  display: flex;
+  width: 100%;
+  list-style-type: none;
+  justify-content: space-around; }
+
+li a {
+  font-size: 22px;
+  list-style-type: none;
+  text-decoration: none;
+  color: #E9E1CB;
+  align-items: space-around; }
 
 form {
   border: 2px solid #E9E1CB;
@@ -109,15 +113,6 @@ form {
   form button {
     margin-top: 15%;
     cursor: pointer; }
-
-.form-wrapper {
-  margin-top: -200px;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center; }
 
 #gender {
   font-size: 150%;
@@ -143,22 +138,6 @@ input {
 
 select {
   margin-bottom: 50px; }
-
-button {
-  width: 200px;
-  height: 70px;
-  font-family: 'Muli', sans-serif;
-  font-size: 30px;
-  border-radius: 1%;
-  color: #E9E1CB;
-  font-weight: 700;
-  background-color: rgba(175, 34, 105, 0.5);
-  font-family: Pacifico;
-  border-radius: 10px;
-  text-shadow: 4px 4px 4px black; }
-  button:hover {
-    animation: jello 4s ease-in-out infinite;
-    filter: blur(3px); }
 
 .height h3 {
   text-align: center; }
@@ -201,6 +180,46 @@ button {
 .bartenders-button {
   width: auto;
   margin-top: 100px; }
+
+h1 {
+  -webkit-animation: neon 1s ease-in-out infinite alternate;
+  -moz-animation: neon 1s ease-in-out infinite alternate;
+  animation: neon 1s ease-in-out infinite alternate;
+  color: #ffd9ef;
+  font-size: 130px;
+  text-align: center;
+  margin-bottom: 90px;
+  font-weight: lighter;
+  font-family: 'pacifico', cursive;
+  transform: rotate(-7deg);
+  line-height: 150px; }
+
+.container {
+  display: flex;
+  background-image: url("img/bar.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+button {
+  width: 200px;
+  height: 70px;
+  font-family: 'Muli', sans-serif;
+  font-size: 30px;
+  border-radius: 1%;
+  color: #E9E1CB;
+  font-weight: 700;
+  background-color: rgba(175, 34, 105, 0.5);
+  font-family: Pacifico;
+  border-radius: 10px;
+  text-shadow: 4px 4px 4px black; }
+  button:hover {
+    animation: jello 4s ease-in-out infinite;
+    filter: blur(3px); }
 
 label, h3 {
   font-size: 30px;
