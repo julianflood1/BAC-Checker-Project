@@ -17,10 +17,14 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 
 ## Wishlist Specifications
 
-1. Add Bartender Class
-2. Add Food Class
-3. METRIC BMI conversion
-4. Make instances more accurate (turn to decimal)
+(C-SHARP)
+1. Make instances more accurate (turn to decimal)
+
+(CSS)
+1. Landing page: "I'm a Patron" button and "I'm a bartender" button.
+2. Patrons page: List of existing patrons and "I'm a new patron" button
+3. Bartender's page, list of all bartenders
+4. Individual bartender page - list of their patrons (and meters?)
 
 
 
