@@ -146,20 +146,32 @@ namespace BloodAlcoholContent.Objects
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-
-      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, bartenders_id) VALUES (@PatronId, @BartenderId);", conn);
+      //NOTE: need to save ID somehow?
+      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, bartenders_id) OUTPUT INSERTED.patrons_id VALUES (@PatronId, @BartenderId);", conn);
       SqlParameter patronIdParameter = new SqlParameter();
       patronIdParameter.ParameterName = "@PatronId";
       patronIdParameter.Value = newPatron.GetId();
       cmd.Parameters.Add(patronIdParameter);
+
+      // qlParameter drinkIdParameter = new SqlParameter();
+      // drinkIdParameter.ParameterName = "@DrinkId";
+      // drinkIdParameter.Value = newPatron.GetId();
+      // cmd.Parameters.Add(drinkIdParameter);
 
       SqlParameter bartenderIdParameter = new SqlParameter();
       bartenderIdParameter.ParameterName = "@BartenderId";
       bartenderIdParameter.Value = this.GetId();
       cmd.Parameters.Add(bartenderIdParameter);
 
-      cmd.ExecuteNonQuery();
-
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while (rdr.Read())
+      {
+        newPatron.SetId(rdr.GetInt32(0));
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
       if (conn != null)
       {
         conn.Close();
@@ -190,6 +202,7 @@ namespace BloodAlcoholContent.Objects
         decimal patronWeight = rdr.GetInt32(3);
         decimal patronHeight = rdr.GetInt32(4);
         Patron newPatron = new Patron(patronName, patronGender, patronWeight, patronHeight, patronId);
+        Console.WriteLine("name:{0}, gender{1}, weigth{2}, height{3}, id{4}", patronName, patronGender, patronWeight, patronHeight, patronId);
         patrons.Add(newPatron);
       }
       if (rdr != null)

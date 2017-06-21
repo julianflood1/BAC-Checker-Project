@@ -18,16 +18,24 @@
   <button type="submit" class="btn submit-btn">Start Drinking!</button>
 </div>
 
-<form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
+<form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
   <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
   <select name="drink-id">
+    <option value="no-foods" selected>Just Food Plz</option>
     @foreach (var chosenDrink in @Model["allDrinks"])
     {
       <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
     }
   </select>
+  <select name="food-id">
+    <option value="no-drinks" selected>Just Drinks Plz</option>
+    @foreach (var chosenFood in @Model["allFood"])
+    {
+      <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>
+    }
+  </select>
   <div id="add-drink">
-    <button type="submit" class="btn submit-btn">Add a Drink!</button>
+    <button type="submit" class="btn submit-btn">Order</button>
   </div>
 </form>
 

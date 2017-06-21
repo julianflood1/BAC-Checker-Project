@@ -2,16 +2,30 @@
   Layout="Shared/_Layout.cshtml";
 }
 
-<h2>@Model["bartenders"].GetName()</h2>
+<h2>@Model["bartender"].GetName()</h2>
+
 
 @if (@Model["bartenderPatrons"].Count != 0)
 {
-PATRONS:
-@foreach (var patron in @Model["bartenderPatrons"])
-<p>Type: @patron.GetName(), BAC: @patron.GetPatronBAC(),
-  @* Total Tab: $@patron.GetTabTotal() *@
-</p>
+<ul>
+  @foreach (var patron in @Model["bartenderPatrons"])
+  {
+    <li><strong>Patron</strong>: @patron.GetName() @* @patron.GetId()</a> | @patron.GetPatronBAC()*@
+    </li>
+  }
+</ul>
 }
 
-<p><a href="/bartenders/menu">View Full Bar Menu</a></p>
-<p><a href="/">HOME</a></p>
+<form id="main-form" action='/bartenders/@Model["bartender"].GetId()/add_patron' method="post">
+  <input name="bartender-id" type="hidden" value='@Model["bartender"].GetId()'>
+  <label for="patron-id">Add a patron to track</label>
+  <select name="patron-id">
+    @foreach (var chosenPatron in @Model["allPatrons"])
+    {
+      <option value="@chosenPatron.GetId()">@chosenPatron.GetName()</option>
+    }
+  </select>
+  <div id="add-patron">
+    <button type="submit" class="btn submit-btn">Add a Patron!</button>
+  </div>
+</form>
