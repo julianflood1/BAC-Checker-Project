@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="css/output.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-     <script src="Content/scripts/scripts.js"></script>
+     <script src="scripts/scripts.js"></script>
      <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
      <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,28 +24,29 @@
           <div id="start-drinking">
             <button type="submit" class="btn submit-btn">Start Drinking!</button>
           </div>
+          <div id="hidden-form">
+           <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
 
-         <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
+             <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+             <select name="drink-id">
+               @foreach (var chosenDrink in @Model["allDrinks"])
+               {
+                 <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+               }
+             </select>
+           </form>
+           <div id="add-drink">
+             <button type="submit" class="btn submit-btn">Add a Drink!</button>
+           </div>
 
-           <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
-           <select name="drink-id">
-             @foreach (var chosenDrink in @Model["allDrinks"])
+           <p>This is what I've drinkity drank so far:</p>
+           <ul>
+             @foreach (var patronDrinks in @Model["patronDrinks"])
              {
-               <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+               <li>@patronDrinks.GetName()</li>
              }
-           </select>
-         </form>
-         <div id="add-drink">
-           <button type="submit" class="btn submit-btn">Add a Drink!</button>
+           </ul>
          </div>
-
-         <p>This is what I've drinkity drank so far:</p>
-         <ul>
-           @foreach (var patronDrinks in @Model["patronDrinks"])
-           {
-             <li>@patronDrinks.GetName()</li>
-           }
-         </ul>
          <div id="back-button">
            <a href="indexWork.html"><button type="submit">Back</button></a>
          </div>

@@ -1,6 +1,9 @@
-document.ready(function() {
+$(document).ready(function() {
 
-if('.progress-in'=== 80%) {
-  $('body').blur()
-}
+$('#start-drinking').click(function(event) {
+  event.preventDefault();
+
+  $('#hidden-form').fadeIn(1000);
+  $('#start-drinking').hide();
+  });
 });
