@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/output.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script src="Content/scripts/scripts.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Drunk Tank</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>Drunk Tank</h1>
+        </div>
+
+        @if (@Model.Count != 0)
+        {
+          <ul>
+            @foreach (var bartender in @Model)
+            {
+              <li><a href="/bartenders/@bartender.GetId()">@bartender.GetName()</a></li>
+            }
+          </ul>
+        }
+        else
+        {
+          <p>AINT NOBODY NOWHERE Y'ALL</p>
+        }
+
+        <div id="patron-buttons" class="flex-buttons">
+          <button type="submit" class="bartenders-button btn btn-submit">Add a Bartender</button>
+          <button type="submit" class="bartenders-button btn btn-submit">View Full Bar Menu</button>
+          <button type="submit" class="bartenders-button btn btn-submit">Home</button>
+        </div>
+
+
+      </div>
+    </div>
+  </body>
+</html>

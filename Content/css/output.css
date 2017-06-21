@@ -205,6 +205,10 @@ button {
   align-items: center;
   width: 100%; }
 
+.bartenders-button {
+  width: auto;
+  margin-top: 100px; }
+
 @keyframes neon {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177; }
