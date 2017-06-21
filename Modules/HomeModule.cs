@@ -30,9 +30,13 @@ namespace BloodAlcoholContent
         Patron selectedPatron = Patron.Find(parameters.id);
         List<Drink> allDrinks = Drink.GetAll();
         List<Drink> patronDrinks = selectedPatron.GetDrinks();
+        List<Food> allFood = Food.GetAll();
+        List<Food> patronFood = selectedPatron.GetFood();
         model.Add("patron", selectedPatron);
+        model.Add("allFood", allFood);
         model.Add("allDrinks", allDrinks);
         model.Add("patronDrinks", patronDrinks);
+        model.Add("patronFood", patronFood);
         return View["patron.cshtml", model];
       };
       Post["/patrons/{id}/add_drink"] = _ => {
@@ -41,10 +45,19 @@ namespace BloodAlcoholContent
         patron.AddDrinkToOrdersTable(drink);
         return View["success.cshtml"];
       };
-      //TODO: TURN INTO BAR MENU WITH FOOD, BE ABLE TO CLICK ON ITEM TO ORDER IT AND ADD SUM TO ORDER TOTAL?
-      Get["/drinks"] = _ => {
+      Post["/patrons/{id}/add_food"] = _ => {
+        Patron patron = Patron.Find(Request.Form["patron-id"]);
+        Food food = Food.Find(Request.Form["food-id"]);
+        patron.AddFoodToOrdersTable(food);
+        return View["success.cshtml"];
+      };
+      Get["/bartenders/menu"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
         List<Drink> allDrinks = Drink.GetAll();
-        return View["drinks.cshtml", allDrinks];
+        List<Food> allFood = Food.GetAll();
+        model.Add("allFood", allFood);
+        model.Add("allDrinks", allDrinks);
+        return View["bar_menu.cshtml", model];
       };
       Get["/drinks/add"] = _ => {
         return View["drinks_add.cshtml"];
@@ -52,6 +65,14 @@ namespace BloodAlcoholContent
       Post["/drinks/add"] = _ => {
         Drink newDrink = new Drink(Request.Form["drink-name"], Request.Form["drink-type"], Request.Form["drink-abv"], Request.Form["drink-cost"], Request.Form["drink-instances"]);
         newDrink.Save();
+        return View["success.cshtml"];
+      };
+      Get["/food/add"] = _ => {
+        return View["food_add.cshtml"];
+      };
+      Post["/food/add"] = _ => {
+        Food newFood = new Food(Request.Form["food-type"], Request.Form["food-description"], Request.Form["food-cost"]);
+        newFood.Save();
         return View["success.cshtml"];
       };
       Get["/drinks/{id}"] = parameters => {
@@ -70,10 +91,13 @@ namespace BloodAlcoholContent
         newBartender.Save();
         return View["success.cshtml"];
       };
-      //TODO: CREATE BARTENDER PAGE VIEW WITH ORDERS
       Get["/bartenders/{id}"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
         Bartender selectedBartender = Bartender.Find(parameters.id);
-        return View["bartender.cshtml", selectedBartender];
+        List<Patron> bartenderPatrons = selectedBartender.GetPatrons();
+        model.Add("bartender", selectedBartender);
+        model.Add("bartenderPatrons", bartenderPatrons);
+        return View["bartender.cshtml", model];
       };
       Get["/food"] = _ => {
         List<Food> allFoods = Food.GetAll();

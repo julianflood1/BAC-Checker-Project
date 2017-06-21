@@ -1,0 +1,17 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h2>@Model["bartenders"].GetName()</h2>
+
+@if (@Model["bartenderPatrons"].Count != 0)
+{
+PATRONS:
+@foreach (var patron in @Model["bartenderPatrons"])
+<p>Type: @patron.GetName(), BAC: @patron.GetPatronBAC(),
+  @* Total Tab: $@patron.GetTabTotal() *@
+</p>
+}
+
+<p><a href="/bartenders/menu">View Full Bar Menu</a></p>
+<p><a href="/">HOME</a></p>

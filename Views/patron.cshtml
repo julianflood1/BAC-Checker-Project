@@ -8,8 +8,12 @@
 
 
 <p>Howdy, my name is @Model["patron"].GetName().</p>
-<p>My BAC is fukken high dood @Model["patron"].GetPatronBAC()</p>
 
+@if (@Model["patronDrinks"].Count != 0)
+{
+  <p>My BAC is fukken high dood
+    @Model["patron"].GetPatronBAC()</p>
+}
 <div id="start-drinking">
   <button type="submit" class="btn submit-btn">Start Drinking!</button>
 </div>
