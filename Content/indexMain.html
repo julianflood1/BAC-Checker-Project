@@ -16,40 +16,42 @@
         <div class="header">
           <h1>Drunk Tank</h1>
         </div>
-        <div class="progress">
-          <span class="progress-bar"><span class="progress-in" style="width: 80%"></span></span>
-        </div>
-        <p>Howdy, my name is @Model["patron"].GetName().</p>
-        <div id="start-drinking">
-          <button type="submit" class="btn submit-btn">Start Drinking!</button>
-        </div>
+        <div class="render-body">
+          <div class="progress">
+            <span class="progress-bar"><span class="progress-in" style="width: 80%"></span></span>
+          </div>
+          <p>Howdy, my name is @Model["patron"].GetName().</p>
+          <div id="start-drinking">
+            <button type="submit" class="btn submit-btn">Start Drinking!</button>
+          </div>
 
-       <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
+         <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
 
-         <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
-         <select name="drink-id">
-           @foreach (var chosenDrink in @Model["allDrinks"])
+           <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+           <select name="drink-id">
+             @foreach (var chosenDrink in @Model["allDrinks"])
+             {
+               <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+             }
+           </select>
+         </form>
+         <div id="add-drink">
+           <button type="submit" class="btn submit-btn">Add a Drink!</button>
+         </div>
+
+         <p>This is what I've drinkity drank so far:</p>
+         <ul>
+           @foreach (var patronDrinks in @Model["patronDrinks"])
            {
-             <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+             <li>@patronDrinks.GetName()</li>
            }
-         </select>
-       </form>
-       <div id="add-drink">
-         <button type="submit" class="btn submit-btn">Add a Drink!</button>
-       </div>
+         </ul>
+         <div id="back-button">
+           <a href="indexWork.html"><button type="submit">Back</button></a>
+         </div>
 
-       <p>This is what I've drinkity drank so far:</p>
-       <ul>
-         @foreach (var patronDrinks in @Model["patronDrinks"])
-         {
-           <li>@patronDrinks.GetName()</li>
-         }
-       </ul>
-       <div id="back-button">
-         <a href="indexWork.html"><button type="submit">Back</button></a>
-       </div>
-       <!-- <p><a href="/">HOME</a></p> -->
-     </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
