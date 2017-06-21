@@ -21,10 +21,11 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 1. Make instances more accurate (turn to decimal)
 
 (CSS)
-1. Landing page: "I'm a Patron" button and "I'm a bartender" button.
-2. Patrons page: List of existing patrons and "I'm a new patron" button
-3. Bartender's page, list of all bartenders
-4. Individual bartender page - list of their patrons (and meters?)
+1. Landing page (index.cshtml): "I'm a Patron" button and "I'm a bartender" button.
+2. Patrons page (patrons.cshtml): List of existing patrons and "I'm a new patron" button
+3. Bartender's page (bartenders.cshtml), list of all bartenders
+4. Individual bartender page (bartender.cshtml) - list of their patrons (and meters?)
+5. Full Bar Menu (bar_menu.cshtml) - list of drinks and food
 
 
 

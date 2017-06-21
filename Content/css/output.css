@@ -174,10 +174,12 @@ button {
   flex-direction: column;
   align-items: center; }
 
-.render-body {
+.renderBody {
   display: flex;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  width: 100%; 
+}
 
 @keyframes neon {
   from {
