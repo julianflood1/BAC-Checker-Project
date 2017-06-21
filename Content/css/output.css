@@ -9,6 +9,9 @@ body {
   font-family: 'Muli', sans-serif;
   color: #E9E1CB; }
 
+html, body {
+  height: 100%; }
+
 .flex-buttons {
   display: flex;
   justify-content: space-around;
@@ -85,25 +88,18 @@ h1 {
   margin-bottom: 90px;
   font-weight: lighter;
   font-family: 'pacifico', cursive;
-  transform: rotate(-7deg); }
+  transform: rotate(-7deg);
+  line-height: 150px; }
 
 .container {
   display: flex;
   background-image: url("img/bar.jpg");
   background-size: cover;
   background-position: center;
-  height: 140vh;
+  min-height: 100%;
   width: 100%;
-  justify-content: center; }
-
-.main-content {
-  height: 100%;
-  background-color: rgba(48, 2, 2, 0.8);
-  width: 60%;
-  opacity: 1;
-  border: 1px solid #E9E1CB;
-  display: flex;
-  flex-direction: column; }
+  justify-content: center;
+  align-items: center; }
 
 form {
   border: 2px solid #E9E1CB;
@@ -182,20 +178,18 @@ button {
 .submit-btn {
   border-radius: 10px;
   height: 80px;
-  margin-top: 80px;
-  color: white; }
+  margin-top: 80px; }
 
 #start-drinking button {
   height: 115px;
   margin-top: 80px;
-  color: white;
   line-height: 40px; }
 
 .add-drink {
   align-content: center; }
 
 .main-content {
-  height: 100%;
+  height: 80%;
   background-color: rgba(48, 2, 2, 0.8);
   width: 60%;
   opacity: 1;
