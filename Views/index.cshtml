@@ -1,9 +1,10 @@
 @{
   Layout="Shared/_Layout.cshtml";
 }
+<h3>Welcome to <em>Drunk Tank</em>, where you can keep track of how <em>tanked</em> you are!</h3>
 
-<p>PLACEHOLDER TEXT TO FOLLOW:</p>
-
-<p>Welcome to the <em>DRUNK TANK</em>, where you can see how <em>TANKED</em> you are!</p>
-
-<p>More random TEXT and STUFF YAY</p>
+<h3 id="select">Select One:</h3>
+<div class="flex-buttons">
+  <a href="/patrons"><button type="button" id="patron-button" class="btn btn-submit">Patron</button></a>
+  <a href="/bartenders"><button type="button" id="bartender-button" class="btn btn-submit">Bartender</button></a>
+</div> <!--flex-buttons-->

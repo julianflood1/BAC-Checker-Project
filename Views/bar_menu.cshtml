@@ -2,6 +2,7 @@
   Layout="Shared/_Layout.cshtml";
 }
 
+<h3>BAR MENU</h3>
 @if (@Model["allDrinks"].Count != 0)
 {
   <p>DRINKS:</p>
@@ -36,5 +37,5 @@ else
   <p>NO FOOD FOR YOU</p>
 }
 
-<p><a href="/drinks/add">Add A New Drink to the Menu</a></p>
-<p><a href="/food/add">Add New Food Item to the Menu</a></p>
+<a href="/drinks/add"><button type="submit" class="btn btn-submit">New Drink</button></a>
+<a href="/food/add"><button type="submit" class="btn btn-submit">New Food</button></a>

@@ -41,52 +41,42 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_SavesToDatabase()
     {
-      //Arrange
       Patron testPatron = new Patron("Doneld Drumpf", "T", 200, 60);
       testPatron.Save();
 
-      //Act
       List<Patron> result = Patron.GetAll();
       List<Patron> testList = new List<Patron>{testPatron};
 
-      //Assert
       Assert.Equal(testList, result);
     }
 
     [Fact]
     public void Test_IdAssignationWorksAsPlanned()
     {
-      //Arrange
       Patron testPatron = new Patron("Gus Gus", "M", 160, 50);
       testPatron.Save();
 
-      //Act
       Patron savedPatron = Patron.GetAll()[0];
 
       int result = savedPatron.GetId();
       int testId = testPatron.GetId();
 
-      //Assert
       Assert.Equal(testId, result);
     }
     [Fact]
     public void Test_FindsPatronInDatabaseWorks()
     {
-      //Arrange
       Patron testPatron = new Patron("Big Jim", "F", 125, 65);
       testPatron.Save();
 
-      //Act
       Patron result = Patron.Find(testPatron.GetId());
 
-      //Assert
       Assert.Equal(testPatron, result);
     }
 
     [Fact]
     public void Test_ReturnsAllDrinksAddedToPatronsList()
     {
-
       Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
       Drink testDrink1 = new Drink("Patron", "Neat", 40, 10, 2);
@@ -104,7 +94,6 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_ReturnsPatronsBMI()
     {
-
       Patron testPatron = new Patron("Tiger Woods", "M", 180, 76);
       testPatron.Save();
       decimal testPatronBMI = testPatron.GetBMI();
@@ -115,7 +104,6 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_ReturnsPatronsBAC()
     {
-
       Patron testPatron = new Patron("Gary Busey", "M", 220, 72);
       Drink testDrink = new Drink("Long Island Iced Tea", "Mixed", 40, 10, 4);
       testPatron.Save();
@@ -126,6 +114,30 @@ namespace BloodAlcoholContentTests
       decimal testPatronBAC = testPatron.GetPatronBAC();
 
       decimal expectedBAC = Math.Round((((Convert.ToDecimal(testDrink.GetABV())/100M * testDrink.GetInstances()) * 5.14M)/(testPatron.GetWeight() * .73M) - (.015M * 1M)), 4);
+
+      Assert.Equal(expectedBAC, testPatronBAC);
+    }
+    [Fact]
+    public void Test_PatronEatsFoodToReduceBAC()
+    {
+      Patron testPatron = new Patron("Kurt RockJaw", "M", 200, 72);
+      testPatron.Save();
+      Drink testDrink = new Drink("The Manliest Drink", "Goat Balls", 40, 20, 4);
+      testDrink.Save();
+      Drink testDrink2 = new Drink("The Manliest Drink", "Goat Balls", 40, 20, 4);
+      testDrink2.Save();
+      Food testFood = new Food("BEEF", "RAW. MEAT. EAT.", 12, 2);
+      testFood.Save();
+      Food testFood2 = new Food("BEEF", "RAW. MEAT. EAT.", 12, 2);
+      testFood2.Save();
+
+      testPatron.AddDrinkToOrdersTable(testDrink);
+      testPatron.AddDrinkToOrdersTable(testDrink2);
+      testPatron.AddFoodToOrdersTable(testFood);
+      testPatron.AddFoodToOrdersTable(testFood2);
+
+      decimal testPatronBAC = testPatron.GetPatronBAC();
+      decimal expectedBAC = Math.Round((((Convert.ToDecimal(testDrink.GetABV())/100M * testDrink.GetInstances()) * 5.14M)/(testPatron.GetWeight() * .73M) - (.015M * 1M) - ((testFood.GetBACRemoval() + testFood2.GetBACRemoval()) / 100)), 6);
 
       Assert.Equal(expectedBAC, testPatronBAC);
     }

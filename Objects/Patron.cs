@@ -362,7 +362,7 @@ namespace BloodAlcoholContent.Objects
       SqlParameter patronIdParameter = new SqlParameter();
       patronIdParameter.ParameterName = "@PatronId";
       patronIdParameter.Value = this.GetId().ToString();
-      // Console.WriteLine("THIS PATRON id : " + this.GetId());
+      Console.WriteLine("THIS PATRON id : " + this.GetId());
 
       cmd.Parameters.Add(patronIdParameter);
 
@@ -373,10 +373,13 @@ namespace BloodAlcoholContent.Objects
       decimal drinkABV = 0.00M;
       decimal patronBAC = 0.0000M;
       int drinkInstances = 0;
+      int foodBACRemovalValue = 0;
       while(rdr.Read())
       {
         drinkABV = rdr.GetDecimal(0);
+        Console.WriteLine("drinkABV: " + drinkABV);
         drinkInstances = rdr.GetInt32(1);
+        // foodBACRemovalValue = rdr.GetInt32(2);
       }
       if (rdr != null)
       {
@@ -389,17 +392,17 @@ namespace BloodAlcoholContent.Objects
 
       if (userGender == "M")
       {
-        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
       }
       if (userGender == "F")
       {
-        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
       }
       if (userGender == "X")
       {
-        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
+        patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
       }
-      decimal fixedPatronBAC = Math.Round(patronBAC, 4);
+      decimal fixedPatronBAC = Math.Round(patronBAC, 6);
       return fixedPatronBAC;
     }
   }

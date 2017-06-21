@@ -33,15 +33,15 @@ namespace BloodAlcoholContentTests
     [Fact]
     public void Test_EqualityOfFoodObjects()
     {
-      Food firstFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50);
-      Food secondFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50);
+      Food firstFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50, 3);
+      Food secondFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50, 3);
       Assert.Equal(firstFood, secondFood);
     }
     [Fact]
     public void Test_SavesToDatabase()
     {
       //Arrange
-      Food testFood = new Food("Mac N Cheese", "Loads of cheese with a little bit of mac.", 13.00);
+      Food testFood = new Food("Mac N Cheese", "Loads of cheese with a little bit of mac.", 13.00, 2);
       testFood.Save();
 
       //Act
@@ -55,7 +55,7 @@ namespace BloodAlcoholContentTests
     public void Test_IdAssignationWorksAsPlanned()
     {
       //Arrange
-      Food testFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50);
+      Food testFood = new Food("Nachos", "BEST BEET NACHOS IN THE WORLD", 4.50, 3);
       testFood.Save();
 
       //Act
@@ -71,7 +71,7 @@ namespace BloodAlcoholContentTests
     public void Test_FindsFoodInDatabaseWorks()
     {
       //Arrange
-      Food testFood = new Food("Mac N Cheese", "Loads of cheese with a little bit of mac.", 13.00);
+      Food testFood = new Food("Mac N Cheese", "Loads of cheese with a little bit of mac.", 13.00, 2);
       testFood.Save();
 
       //Act
