@@ -39,16 +39,20 @@ namespace BloodAlcoholContent
         model.Add("patronFood", patronFood);
         return View["patron.cshtml", model];
       };
-      Post["/patrons/{id}/add_drink"] = _ => {
+      Post["/patrons/{id}/add_order"] = _ => {
         Patron patron = Patron.Find(Request.Form["patron-id"]);
-        Drink drink = Drink.Find(Request.Form["drink-id"]);
-        patron.AddDrinkToOrdersTable(drink);
-        return View["success.cshtml"];
-      };
-      Post["/patrons/{id}/add_food"] = _ => {
-        Patron patron = Patron.Find(Request.Form["patron-id"]);
-        Food food = Food.Find(Request.Form["food-id"]);
-        patron.AddFoodToOrdersTable(food);
+        string testDrinkInput = Request.Form["drink-id"];
+        if (testDrinkInput != "no-foods")
+        {
+          Drink drink = Drink.Find(Request.Form["drink-id"]);
+          patron.AddDrinkToOrdersTable(drink);
+        }
+        string testFoodInput = Request.Form["food-id"];
+        if (testFoodInput != "no-drinks")
+        {
+          Food food = Food.Find(Request.Form["food-id"]);
+          patron.AddFoodToOrdersTable(food);
+        }
         return View["success.cshtml"];
       };
       Get["/bartenders/menu"] = _ => {
@@ -95,9 +99,17 @@ namespace BloodAlcoholContent
         Dictionary<string, object> model = new Dictionary<string, object>();
         Bartender selectedBartender = Bartender.Find(parameters.id);
         List<Patron> bartenderPatrons = selectedBartender.GetPatrons();
+        List<Patron> allPatrons = Patron.GetAll();
         model.Add("bartender", selectedBartender);
+        model.Add("allPatrons", allPatrons);
         model.Add("bartenderPatrons", bartenderPatrons);
         return View["bartender.cshtml", model];
+      };
+      Post["/bartenders/{id}/add_patron"] = _ => {
+        Bartender bartender = Bartender.Find(Request.Form["bartender-id"]);
+        Patron patron = Patron.Find(Request.Form["patron-id"]);
+        bartender.AddPatronToOrdersTable(patron);
+        return View["success.cshtml"];
       };
       Get["/food"] = _ => {
         List<Food> allFoods = Food.GetAll();

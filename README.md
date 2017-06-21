@@ -18,7 +18,14 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 ## Wishlist Specifications
 
 (C-SHARP)
-1. Make instances more accurate (turn to decimal)
+Add navbar
+Bar Menu
+1. Make meter react to BAC level.
+2. Make BAC decrease over time.
+3. Add "I drank water" button/order food button to decrease BAC
+4. Add total of customer tab
+5. Fix bartender, show patronBAC thingamajig. GRRRRRRR
+6. Make instances more accurate (turn to decimal)
 
 (CSS)
 1. Landing page (index.cshtml): "I'm a Patron" button and "I'm a bartender" button.

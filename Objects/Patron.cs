@@ -56,6 +56,10 @@ namespace BloodAlcoholContent.Objects
     {
       return _saveStaticTime;
     }
+    public void SetId(int newId)
+    {
+      _id = newId;
+    }
 //WILL BE SET ON BUTTON PRESS IN NANCY
     public void SetDateTimeNow()
     {
@@ -358,7 +362,7 @@ namespace BloodAlcoholContent.Objects
       SqlParameter patronIdParameter = new SqlParameter();
       patronIdParameter.ParameterName = "@PatronId";
       patronIdParameter.Value = this.GetId().ToString();
-
+      // Console.WriteLine("THIS PATRON id : " + this.GetId());
 
       cmd.Parameters.Add(patronIdParameter);
 
@@ -395,8 +399,8 @@ namespace BloodAlcoholContent.Objects
       {
         patronBAC = (((drinkABV/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M));
       }
-
-      return Math.Round(patronBAC, 4);
+      decimal fixedPatronBAC = Math.Round(patronBAC, 4);
+      return fixedPatronBAC;
     }
   }
 }
