@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/output.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script src="/Content/scripts/scripts.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Drunk Tank</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>Drunk Tank</h1>
+        </div>
+
+
+        <h2>@Model["bartender"].GetName()</h2>
+
+
+        @if (@Model["bartenderPatrons"].Count != 0)
+        {
+        <ul>
+          @foreach (var patron in @Model["bartenderPatrons"])
+          {
+            <li><strong>Patron</strong>: @patron.GetName() @* @patron.GetId()</a> | @patron.GetPatronBAC()*@
+            </li>
+          }
+        </ul>
+        }
+
+        <form id="main-form" action='/bartenders/@Model["bartender"].GetId()/add_patron' method="post">
+          <input name="bartender-id" type="hidden" value='@Model["bartender"].GetId()'>
+          <label for="patron-id">Add a patron to track</label>
+          <select name="patron-id">
+            @foreach (var chosenPatron in @Model["allPatrons"])
+            {
+              <option value="@chosenPatron.GetId()">@chosenPatron.GetName()</option>
+            }
+          </select>
+          <div id="add-patron">
+            <button type="submit" class="btn submit-btn">Add a Patron!</button>
+          </div>
+        </form>
+
+
+        <button type="submit" class="bartenders-button btn btn-submit">Home</button>
+
+      </div>
+    </div>
+  </body>
+</html>
