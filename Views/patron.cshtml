@@ -2,13 +2,19 @@
   Layout="Shared/_Layout.cshtml";
 }
 
+<div class="progress">
+  <span class="progress-bar"><span class="progress-in" style="width: 80%"></span></span>
+</div>
+
+
 <p>Howdy, my name is @Model["patron"].GetName().</p>
 <p>My BAC is fukken high dood @Model["patron"].GetPatronBAC()</p>
 
+<div id="start-drinking">
+  <button type="submit" class="btn submit-btn">Start Drinking!</button>
+</div>
 
-<h2>ADD DRINK METER HERE</h2>
-
-<form action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
+<form id="main-form" action='/patrons/@Model["patron"].GetId()/add_drink' method="post">
   <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
   <select name="drink-id">
     @foreach (var chosenDrink in @Model["allDrinks"])
@@ -16,7 +22,9 @@
       <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
     }
   </select>
-  <button type="submit">ADD DRINK</button>
+  <div id="add-drink">
+    <button type="submit" class="btn submit-btn">Add a Drink!</button>
+  </div>
 </form>
 
 <p>This is what I've drinkity drank so far:</p>
@@ -27,4 +35,6 @@
   }
 </ul>
 
-<p><a href="/">HOME</a></p>
+<div id="back-button">
+  <a href="/"><button type="click">Home</button></a>
+</div>
