@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/output.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script src="/Content/scripts/scripts.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Drunk Tank</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>Drunk Tank</h1>
+        </div>
+
+        <p>BARTENDER INFO:</p>
+        <form action="/bartenders/add" method="post">
+          <label for="bartender-name">Name:</label>
+          <input type="text" name="bartender-name" id="bartender-name">
+          <button type="submit">Submit</button>
+        </form>
+
+        <button type="submit" class="bartenders-button btn btn-submit">View All Bartenders</button>
+        <button type="submit" class="bartenders-button btn btn-submit">Home</button>
+
+      </div>
+    </div>
+  </body>
+</html>
