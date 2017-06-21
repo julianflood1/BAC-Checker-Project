@@ -98,11 +98,16 @@ button {
   font-family:'Muli', sans-serif;
   font-size: 30px;
   border-radius: 1%;
-  color: white;
+  color: #E9E1CB;
   font-weight: 700;
-  background-color: rgba(108, 2, 2 , 0.5 );
+  background-color: rgba(175, 34, 105, 0.5 );
   font-family: Pacifico;
   border-radius: 10px;
+  text-shadow: 4px 4px 4px black;
+  &:hover {
+    animation: jello 4s ease-in-out infinite;
+    filter: blur(3px);
+  }
 }
 
 .height h3 {
