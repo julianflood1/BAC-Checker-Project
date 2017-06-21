@@ -104,6 +104,10 @@ button {
   font-family: Pacifico;
   border-radius: 10px;
   text-shadow: 4px 4px 4px black;
+  &:hover {
+    animation: jello 4s ease-in-out infinite;
+    filter: blur(3px);
+  }
 }
 
 .height h3 {
