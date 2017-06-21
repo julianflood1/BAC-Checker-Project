@@ -1,0 +1,33 @@
+.flex-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  color: #E9E1CB;
+}
+
+#patron-button {
+  margin-left: 2%;
+  list-style: none;
+  cursor: pointer;
+  color: #E9E1CB;
+
+}
+
+#bartender-button {
+  margin-right: 2%;
+  cursor: pointer;
+  color: #E9E1CB;
+}
+
+.main-content {
+h3 {
+  text-align: center;
+  font-size: 25px;
+  }
+}
+
+#select {
+  padding-top: 15%;
+  padding-bottom: 5%;
+}
