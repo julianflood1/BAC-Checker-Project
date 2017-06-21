@@ -10,14 +10,16 @@ namespace BloodAlcoholContent.Objects
     private string _foodType;
     private string _description;
     private decimal _cost;
+    private int _bac_removal;
     private int _id;
 
-    public Food(string FoodType, string Description, double Cost, int Id = 0)
+    public Food(string FoodType, string Description, double Cost, int bacRemoval = 0, int Id = 0)
     {
       _id = Id;
       _foodType = FoodType;
       _description = Description;
       _cost = Convert.ToDecimal(Cost);
+      _bac_removal = bacRemoval;
     }
 
     public int GetId()
@@ -36,10 +38,19 @@ namespace BloodAlcoholContent.Objects
     {
       return _cost;
     }
+    public int GetBACRemoval()
+    {
+      return _bac_removal;
+    }
     public void SetId(int Id)
     {
       _id = Id;
     }
+    public void SetBACRemoval(int bacRemovalValue)
+    {
+      _bac_removal = bacRemovalValue;
+    }
+
     public override bool Equals(System.Object otherFood)
     {
       if (!(otherFood is Food))
@@ -53,7 +64,8 @@ namespace BloodAlcoholContent.Objects
         bool foodTypeEquality = this.GetFoodType() == newFood.GetFoodType();
         bool descriptionEquality = this.GetDescription() == newFood.GetDescription();
         bool costEquality = this.GetCost() == newFood.GetCost();
-        return (idEquality && foodTypeEquality && descriptionEquality && costEquality);
+        bool bacRemovalEquality = this.GetBACRemoval() == newFood.GetBACRemoval();
+        return (idEquality && foodTypeEquality && descriptionEquality && costEquality && bacRemovalEquality);
       }
     }
     public static void DeleteAll()
@@ -81,7 +93,8 @@ namespace BloodAlcoholContent.Objects
         string foodType = rdr.GetString(1);
         string foodDescription = rdr.GetString(2);
         decimal foodCost = rdr.GetDecimal(3);
-        Food newFood = new Food(foodType, foodDescription, Convert.ToDouble(foodCost), foodId);
+        int foodBACRemovalValue = rdr.GetInt32(4);
+        Food newFood = new Food(foodType, foodDescription, Convert.ToDouble(foodCost), foodBACRemovalValue, foodId);
         allFoods.Add(newFood);
       }
       if (rdr != null)
@@ -99,7 +112,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO foods (food_type, description, cost) OUTPUT INSERTED.id VALUES (@FoodType, @FoodDescription, @FoodCost)", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO foods (food_type, description, cost, bac_removal) OUTPUT INSERTED.id VALUES (@FoodType, @FoodDescription, @FoodCost, @FoodBACRemovalValue)", conn);
 
       SqlParameter typeParam = new SqlParameter();
       typeParam.ParameterName = "@FoodType";
@@ -113,9 +126,14 @@ namespace BloodAlcoholContent.Objects
       costParam.ParameterName = "@FoodCost";
       costParam.Value = this.GetCost();
 
+      SqlParameter bacRemovalParam = new SqlParameter();
+      bacRemovalParam.ParameterName = "@FoodBACRemovalValue";
+      bacRemovalParam.Value = this.GetBACRemoval();
+
       cmd.Parameters.Add(typeParam);
       cmd.Parameters.Add(costParam);
       cmd.Parameters.Add(descriptionParam);
+      cmd.Parameters.Add(bacRemovalParam);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -151,6 +169,7 @@ namespace BloodAlcoholContent.Objects
       string foundFoodType = null;
       string foundFoodDescription = null;
       decimal foundFoodCost = 0;
+      int foundFoodBACRemovalValue = 0;
 
       while(rdr.Read())
       {
@@ -158,8 +177,9 @@ namespace BloodAlcoholContent.Objects
         foundFoodType = rdr.GetString(1);
         foundFoodDescription = rdr.GetString(2);
         foundFoodCost = rdr.GetDecimal(3);
+        foundFoodBACRemovalValue = rdr.GetInt32(4);
       }
-      Food foundFood = new Food(foundFoodType, foundFoodDescription, Convert.ToDouble(foundFoodCost), foundFoodId);
+      Food foundFood = new Food(foundFoodType, foundFoodDescription, Convert.ToDouble(foundFoodCost), foundFoodBACRemovalValue, foundFoodId);
 
       if (rdr != null)
       {

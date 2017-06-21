@@ -1,9 +1,16 @@
 @{
   Layout="Shared/_Layout.cshtml";
 }
+@functions{
+  public int ConvertToPercentile(decimal BAC)
+  {
+    int percentile = Convert.ToInt32(BAC * 200M);
+    return percentile;
+  }
+}
 
 <div class="progress">
-  <span class="progress-bar"><span class="progress-in" style="width: 80%"></span></span>
+  <span class="progress-bar"><span class="progress-in" style="width: @ConvertToPercentile(@Model["patron"].GetPatronBAC())%"></span></span>
 </div>
 
 
