@@ -20,18 +20,31 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 (C-SHARP)
 1. CHANGE ADD* to orders table method to account for all connected tables
 2. Make BAC decrease over time.
-3. Add "I drank water" button/order food button to decrease BAC
+3. Add "I drank water" button/order food button to decrease BAC (can be included in #1)
 4. Add total of customer tab
-5. Fix bartender, show patronBAC thingamajig. GRRRRRRR
-6. Make instances more accurate (turn to decimal)
-7. Remove success page
+5. Fix bartender, show patronBAC thingamajig. GRRRRRRR (see css #1)
+6. Make instances more accurate (turn to decimal) (maybe make formula more accurate too)
+7. Remove success page (can probably make dictionary just like the Get["/whatever/whatever"])
 
 (CSS)
-1. Landing page (index.cshtml): "I'm a Patron" button and "I'm a bartender" button.
-2. Patrons page (patrons.cshtml): List of existing patrons and "I'm a new patron" button
-3. Bartender's page (bartenders.cshtml), list of all bartenders
-4. Individual bartender page (bartender.cshtml) - list of their patrons (and meters?)
-5. Full Bar Menu (bar_menu.cshtml) - list of drinks and food
+
+1. Individual bartender page (bartender.cshtml) - list of their patrons WITH METERS MAYBE ZOMG (that part is c#... dammit)
+
+
+NOTES 6/21
+Nav bar is super nice, but only shows on a few pages. Should show on all but home page, maybe even home page as well. Not sure what's wrong.
+Pages missing from:
+1.  Success (gonna try to change success page routing)
+2.  bartender.cshtml
+3.  bar_menu.cshtml
+4.  patron_add.cshtml
+5.  patron.cshtml
+6.  drinks_add.cshtml
+7.  food_add.cshtml
+Dropdown lists on patron page could use some styling.
+List of patrons on patrons.cshtml is all mashed together.
+When clicking on link to recently created patron it leads to a broken page due to null values (probably the error we were having with the 4join table)
+Wow I'm tired and I cant think of anything else.
 
 ## Setup/Installation Requirements
 

@@ -23,7 +23,7 @@ namespace BloodAlcoholContent
       Post["/patrons/add"] = _ => {
         Patron newPatron = new Patron(Request.Form["patron-name"], Request.Form["patron-gender"], Request.Form["patron-weight"], Request.Form["patron-height"]);
         newPatron.Save();
-        return View["success.cshtml"];
+        return View["index.cshtml"];
       };
       Get["/patrons/{id}"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
