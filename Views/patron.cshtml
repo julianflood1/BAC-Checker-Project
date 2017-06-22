@@ -4,7 +4,7 @@
 @functions{
   public int ConvertToPercentile(decimal BAC)
   {
-    int percentile = Convert.ToInt32(BAC * 200M);
+    int percentile = Convert.ToInt32(BAC * 1000M);
     return percentile;
   }
 }
@@ -27,34 +27,35 @@
 
 @if (@Model["patronDrinks"].Count != 0)
 {
-  <p>My BAC is fukken high dood
-    @Model["patron"].GetPatronBAC()</p>
+  <p>BAC: @Model["patron"].GetPatronBAC()</p>
+  @if (@Model["patron"].GetPatronBAC() > .08M)
+  {
+    <p>DO NOT DRIVE</p>
+  }
 }
 <div id="start-drinking">
   <button type="submit" class="btn submit-btn">Start Drinking!</button>
 </div>
-
-<form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
-  <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
-  <select name="drink-id">
-    <option value="no-foods" selected>No Drinks Plz</option>
-    @foreach (var chosenDrink in @Model["allDrinks"])
-    {
-      <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
-    }
-  </select>
-  <select name="food-id">
-    <option value="no-drinks" selected>No Food Plz</option>
-    @foreach (var chosenFood in @Model["allFood"])
-    {
-      <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>
-    }
-  </select>
-  <div id="add-drink">
-    <button type="submit" class="btn submit-btn">Order</button>
-  </div>
-</form>
-
+<div id="hidden-form">
+  <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
+    <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+    <select required name="drink-id">
+      @foreach (var chosenDrink in @Model["allDrinks"])
+      {
+        <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+      }
+    </select>
+    <select required name="food-id">
+      @foreach (var chosenFood in @Model["allFood"])
+      {
+        <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>
+      }
+    </select>
+    <div id="add-drink">
+      <button type="submit" class="btn submit-btn">Order</button>
+    </div>
+  </form>
+</div>
 <p>This is what I've drinkity drank so far:</p>
 <ul>
   @foreach (var patronDrinks in @Model["patronDrinks"])

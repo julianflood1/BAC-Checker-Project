@@ -41,18 +41,9 @@ namespace BloodAlcoholContent
       };
       Post["/patrons/{id}/add_order"] = _ => {
         Patron patron = Patron.Find(Request.Form["patron-id"]);
-        string testDrinkInput = Request.Form["drink-id"];
-        if (testDrinkInput != "no-foods")
-        {
-          Drink drink = Drink.Find(Request.Form["drink-id"]);
-          patron.AddDrinkAndFoodToOrdersTable(drink);
-        }
-        string testFoodInput = Request.Form["food-id"];
-        if (testFoodInput != "no-drinks")
-        {
-          Food food = Food.Find(Request.Form["food-id"]);
-          patron.AddDrinkAndFoodToOrdersTable(null, food);
-        }
+        Drink drink = Drink.Find(Request.Form["drink-id"]);
+        Food food = Food.Find(Request.Form["food-id"]);
+        patron.AddDrinkAndFoodToOrdersTable(drink, food);
         return View["success.cshtml"];
       };
       Get["/bartenders/menu"] = _ => {
@@ -75,7 +66,7 @@ namespace BloodAlcoholContent
         return View["food_add.cshtml"];
       };
       Post["/food/add"] = _ => {
-        Food newFood = new Food(Request.Form["food-type"], Request.Form["food-description"], Request.Form["food-cost"]);
+        Food newFood = new Food(Request.Form["food-type"], Request.Form["food-description"], Request.Form["food-cost"], Request.Form["food-bac-removal"]);
         newFood.Save();
         return View["success.cshtml"];
       };
