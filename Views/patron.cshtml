@@ -4,55 +4,78 @@
 @functions{
   public int ConvertToPercentile(decimal BAC)
   {
-    int percentile = Convert.ToInt32(BAC * 200M);
+    int percentile = Convert.ToInt32(BAC * 1000M);
     return percentile;
   }
 }
 
-<div class="progress">
+@if (@Model["patronDrinks"].Count !=0)
+{
+  <div class="progress">
   <span class="progress-bar"><span class="progress-in" style="width: @ConvertToPercentile(@Model["patron"].GetPatronBAC())%"></span></span>
-</div>
+  </div>
+} else
+{
+  <p>YOU HAVEN'T HAD ANY DRINKS. TIME TO TAKE A SHOT!</p>
+  <div class="progress">
+  <span class="progress-bar"><span class="progress-in" style="width: 0%"></span></span>
+  </div>
+}
 
 
 <p>Howdy, my name is @Model["patron"].GetName().</p>
 
 @if (@Model["patronDrinks"].Count != 0)
 {
-  <p>My BAC is fukken high dood
-    @Model["patron"].GetPatronBAC()</p>
+  <p>BAC: @Model["patron"].GetPatronBAC()</p>
+  @if (@Model["patron"].GetPatronBAC() > .08M)
+  {
+    <p>DO NOT DRIVE</p>
+  }
 }
 <div id="start-drinking">
-  <button type="submit" class="btn submit-btn">Start Drinking!</button>
+  <button type="submit" class="btn submit-btn">New Order!</button>
 </div>
-
-<form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
-  <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
-  <select name="drink-id">
-    <option value="no-foods" selected>Just Food Plz</option>
-    @foreach (var chosenDrink in @Model["allDrinks"])
+<div id="hidden-form">
+  <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
+    <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+    <select required name="drink-id">
+      @foreach (var chosenDrink in @Model["allDrinks"])
+      {
+        <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+      }
+    </select>
+    <select required name="food-id">
+      @foreach (var chosenFood in @Model["allFood"])
+      {
+        <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>
+      }
+    </select>
+    <div id="add-drink">
+      <button type="submit" class="btn submit-btn">Order</button>
+    </div>
+  </form>
+</div>
+<p>My tab:</p>
+@if (@Model["patronDrinks"].Count != 0)
+{
+  <ul>
+    @foreach (var patronDrinks in @Model["patronDrinks"])
     {
-      <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
+      <li>@patronDrinks.GetName() | $@patronDrinks.GetCost()</li>
     }
-  </select>
-  <select name="food-id">
-    <option value="no-drinks" selected>Just Drinks Plz</option>
-    @foreach (var chosenFood in @Model["allFood"])
+  </ul>
+}
+@if (@Model["patronFood"].Count != 0)
+{
+  <ul>
+    @foreach (var patronFood in @Model["patronFood"])
     {
-      <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>
+      <li>@patronFood.GetFoodType() | $@patronFood.GetCost()</li>
     }
-  </select>
-  <div id="add-drink">
-    <button type="submit" class="btn submit-btn">Order</button>
-  </div>
-</form>
-
-<p>This is what I've drinkity drank so far:</p>
-<ul>
-  @foreach (var patronDrinks in @Model["patronDrinks"])
-  {
-    <li>@patronDrinks.GetName()</li>
-  }
 </ul>
+<p><strong>Tab Total: $@Model["patron"].GetPatronTabTotal()</strong></p>
+}
 
 <div id="back-button">
   <a href="/"><button type="click">Home</button></a>

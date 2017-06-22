@@ -182,7 +182,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT patrons.* FROM bartenders JOIN orders ON (bartenders.id = orders.bartenders_id) JOIN patrons ON (orders.patrons_id = patrons.id) WHERE bartenders.id = @BartenderId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT DISTINCT patrons.* FROM bartenders JOIN orders ON (bartenders.id = orders.bartenders_id) JOIN patrons ON (orders.patrons_id = patrons.id) WHERE bartenders.id = @BartenderId;", conn);
 
       SqlParameter bartenderIdParameter = new SqlParameter();
       bartenderIdParameter.ParameterName = "@BartenderId";
@@ -202,7 +202,6 @@ namespace BloodAlcoholContent.Objects
         decimal patronWeight = rdr.GetInt32(3);
         decimal patronHeight = rdr.GetInt32(4);
         Patron newPatron = new Patron(patronName, patronGender, patronWeight, patronHeight, patronId);
-        Console.WriteLine("name:{0}, gender{1}, weigth{2}, height{3}, id{4}", patronName, patronGender, patronWeight, patronHeight, patronId);
         patrons.Add(newPatron);
       }
       if (rdr != null)

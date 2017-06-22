@@ -93,7 +93,7 @@ namespace BloodAlcoholContent.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM drinks ORDER BY drink_type;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM drinks ORDER BY abv;", conn);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
