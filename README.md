@@ -55,11 +55,11 @@ _In your preferred browser, navigate to http://localhost:5004/ and you should se
 
 ## Known Bugs
 
-_NA_
+_When refreshing a page after submitting a form, it will prompt user to re-submit data. If done this will duplicate data._
 
 ## Support and contact details
 
-_If you run into any issues or have questions, ideas or concerns, please contact Alyssa Moody at alyssanicholemoody@gmail.com_
+_If you run into any issues or have questions, ideas or concerns, please contact Alyssa Moody at alyssanicholemoody@gmail.com or David Wilson at davidtheadmiral@gmail.com_
 
 ## Technologies Used
 

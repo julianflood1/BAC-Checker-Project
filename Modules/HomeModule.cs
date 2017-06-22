@@ -33,10 +33,12 @@ namespace BloodAlcoholContent
         List<Drink> patronDrinks = selectedPatron.GetDrinks();
         List<Food> allFood = Food.GetAll();
         List<Food> patronFood = selectedPatron.GetFood();
+        List<Bartender> patronBartender = selectedPatron.GetBartender();
         model.Add("patron", selectedPatron);
         model.Add("allFood", allFood);
         model.Add("allDrinks", allDrinks);
         model.Add("patronDrinks", patronDrinks);
+        model.Add("patronBartender", patronBartender);
         model.Add("patronFood", patronFood);
         return View["patron.cshtml", model];
       };
@@ -49,14 +51,22 @@ namespace BloodAlcoholContent
         Patron selectedPatron = Patron.Find(parameters.id);
         List<Drink> allDrinks = Drink.GetAll();
         List<Drink> patronDrinks = selectedPatron.GetDrinks();
+        List<Bartender> patronBartender = selectedPatron.GetBartender();
         List<Food> allFood = Food.GetAll();
         List<Food> patronFood = selectedPatron.GetFood();
         model.Add("patron", selectedPatron);
         model.Add("allFood", allFood);
         model.Add("allDrinks", allDrinks);
         model.Add("patronDrinks", patronDrinks);
+        model.Add("patronBartender", patronBartender);
         model.Add("patronFood", patronFood);
         return View["patron.cshtml", model];
+      };
+      Delete["/patrons/{id}/delete"] = _ => {
+        Patron selectedPatron = Patron.Find(Request.Form["patron-id"]);
+        selectedPatron.Delete();
+        List<Patron> allPatrons = Patron.GetAll();
+        return View["index.cshtml", allPatrons];
       };
       Get["/bartenders"] = _ => {
         List<Bartender> allBartenders = Bartender.GetAll();

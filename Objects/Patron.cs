@@ -227,6 +227,41 @@ namespace BloodAlcoholContent.Objects
       return foundPatron;
     }
 
+    public List<Bartender> GetBartender()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT bartenders.* FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN bartenders ON (orders.bartenders_id = bartenders.id) WHERE patrons.id = @PatronId;", conn);
+
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId().ToString();
+
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Bartender> bartenders = new List<Bartender>{};
+
+      while(rdr.Read())
+      {
+        int bartenderId = rdr.GetInt32(0);
+        string bartenderName = rdr.GetString(1);
+        Bartender newBartender = new Bartender(bartenderName, bartenderId);
+        bartenders.Add(newBartender);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return bartenders;
+    }
+
     public List<Drink> GetDrinks()
     {
       SqlConnection conn = DB.Connection();
@@ -419,6 +454,26 @@ namespace BloodAlcoholContent.Objects
         conn.Close();
       }
       return totalTab;
+    }
+
+    public void Delete()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM patrons WHERE id = @PatronId; DELETE FROM orders WHERE patrons_id = @PatronId;", conn);
+
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(patronIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }
