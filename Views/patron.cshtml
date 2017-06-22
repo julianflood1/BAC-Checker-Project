@@ -62,7 +62,7 @@
   <ul>
     @foreach (var patronDrinks in @Model["patronDrinks"])
     {
-      <li>@patronDrinks.GetName()</li>
+      <li>@patronDrinks.GetName() | $@patronDrinks.GetCost()</li>
     }
   </ul>
 }
@@ -71,10 +71,10 @@
   <ul>
     @foreach (var patronFood in @Model["patronFood"])
     {
-      <li>@patronFood.GetFoodType()</li>
+      <li>@patronFood.GetFoodType() | $@patronFood.GetCost()</li>
     }
 </ul>
-@*<p><strong>Tab Total: $@Model["patron"].GetPatronTabTotal()</strong></p>*@
+<p><strong>Tab Total: $@Model["patron"].GetPatronTabTotal()</strong></p>
 }
 
 <div id="back-button">
