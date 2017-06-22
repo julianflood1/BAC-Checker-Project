@@ -9,7 +9,7 @@
   <ul>
     @foreach (var drink in @Model["allDrinks"])
     {
-      <li>@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</li>
+      <li class="bold-list">@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</li>
     }
   </ul>
 }
@@ -24,7 +24,7 @@ else
   <ul>
     @foreach (var food in @Model["allFood"])
     {
-      <li>@food.GetFoodType() | Cost: $@food.GetCost()
+      <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
         <ul>
           <li>@food.GetDescription()</li>
         </ul>
