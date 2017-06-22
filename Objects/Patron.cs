@@ -371,22 +371,57 @@ namespace BloodAlcoholContent.Objects
 
       if (userGender == "M")
       {
-        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
+        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .73M) - (.025M * 1M)) - (foodBACRemovalValue / 100);
       }
       if (userGender == "F")
       {
-        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
+        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .66M) - (.025M * 1M)) - (foodBACRemovalValue / 100);
       }
       if (userGender == "X")
       {
-        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.015M * 1M)) - (foodBACRemovalValue / 100);
+        patronBAC = ((((drinkABV/Convert.ToDecimal(drinkCount))/100 * drinkInstances) * 5.14M)/(userWeight * .69M) - (.025M * 1M)) - (foodBACRemovalValue / 100);
       }
       decimal fixedPatronBAC = Math.Round(patronBAC, 6);
+
       if (fixedPatronBAC < 0)
       {
         fixedPatronBAC = 0;
       }
       return fixedPatronBAC;
     }
+
+    // public decimal GetPatronTabTotal()
+    // {
+    //   SqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   SqlCommand cmd = new SqlCommand("SELECT SUM(drinks.cost), SUM(foods.cost) FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) JOIN foods ON (orders.foods_id = foods.id) WHERE patrons.id = @PatronId;", conn);
+    //
+    //   SqlParameter patronIdParameter = new SqlParameter();
+    //   patronIdParameter.ParameterName = "@PatronId";
+    //   patronIdParameter.Value = this.GetId().ToString();
+    //
+    //   cmd.Parameters.Add(patronIdParameter);
+    //
+    //   SqlDataReader rdr = cmd.ExecuteReader();
+    //
+    //   string totalFoodCost = null;
+    //   string totalDrinkCost = null;
+    //   while(rdr.Read())
+    //   {
+    //     totalFoodCost = Convert.ToString(rdr.GetDecimal(0));
+    //     totalDrinkCost = Convert.ToString(rdr.GetDecimal(1));
+    //   }
+    //   if (rdr != null)
+    //   {
+    //     rdr.Close();
+    //   }
+    //   if (conn != null)
+    //   {
+    //     conn.Close();
+    //   }
+    //   string totalTab = totalFoodCost + totalDrinkCost;
+    //   return totalTab;
+    // }
   }
 }
