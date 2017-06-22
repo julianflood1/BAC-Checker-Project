@@ -1,3 +1,9 @@
 #patron-buttons {
   margin-top: 20%;
+  @include medium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+  };
 }
