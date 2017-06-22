@@ -35,6 +35,9 @@ html, body {
 .main-content h3 {
   text-align: center;
   font-size: 25px; }
+  @media (max-width: 600px) {
+    .main-content h3 {
+      padding: 0px 8px; } }
 
 #select {
   padding-top: 15%;
@@ -199,6 +202,10 @@ form {
     flex-direction: column;
     width: 60%; } }
 
+@media (max-width: 600px) {
+  p {
+    text-align: center; } }
+
 h1 {
   -webkit-animation: neon 1s ease-in-out infinite alternate;
   -moz-animation: neon 1s ease-in-out infinite alternate;
@@ -278,15 +285,15 @@ select {
   margin-left: 10px;
   margin-right: 10px; }
 
-select:active, select:hover {
-  background: transparent; }
-
 #bold-list {
   font-weight: bold;
   font-size: 20px; }
 
 li {
   padding: 20px; }
+
+#food-p {
+  font-size: 10px; }
 
 @keyframes neon {
   from {

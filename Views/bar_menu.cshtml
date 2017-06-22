@@ -2,7 +2,6 @@
   Layout="Shared/_Layout.cshtml";
 }
 
-<form>
   <h2>BAR MENU</h2>
 
     @if (@Model["allDrinks"].Count != 0)
@@ -21,7 +20,6 @@
     }
 
 
-
     @if (@Model["allFood"].Count != 0)
     {
       <p>FOOD:</p>
@@ -29,9 +27,7 @@
         @foreach (var food in @Model["allFood"])
         {
           <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
-            <ul>
-              <li>@food.GetDescription()</li>
-            </ul>
+              <p id="food-p">@food.GetDescription()</p>
           </li>
         }
       </ul>
@@ -41,6 +37,6 @@
     <p>NO FOOD FOR YOU</p>
   }
 
-</form>
+
 <a href="/drinks/add"><button type="submit" class="btn btn-submit">New Drink</button></a>
 <a href="/food/add"><button type="submit" class="btn btn-submit">New Food</button></a>
