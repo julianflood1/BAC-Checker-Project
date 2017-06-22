@@ -4,17 +4,12 @@
   justify-content: center;
   margin-bottom: 100px;
 }
-//ALL BUTTONS!
 
-.submit-btn {
-  border-radius: 10px;
-  height: 80px;
-  margin-top: 80px;
-}
 
 #start-drinking button {
   height: 115px;
   margin-top: 80px;
+  margin-bottom: 100px;
   line-height: 40px;
 }
 
@@ -34,7 +29,6 @@
   padding: 30px;
 }
 
-
 .renderBody {
   display: flex;
   flex-direction: column;
@@ -44,4 +38,10 @@
 
 #hidden-form {
   display: none;
+}
+
+#main-form  {
+  padding-top: 60px;
+  height: 10%;
+  width: 80%;
 }

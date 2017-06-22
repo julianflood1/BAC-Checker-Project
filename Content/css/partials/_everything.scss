@@ -28,14 +28,14 @@ h1  {
 button {
   width: 200px;
   height: 70px;
+  margin: 15px;
   font-family:'Muli', sans-serif;
   font-size: 30px;
-  border-radius: 1%;
+  border-radius: 10px;
   color: #E9E1CB;
   font-weight: 700;
   background-color: rgba(175, 34, 105, 0.5 );
   font-family: Pacifico;
-  border-radius: 10px;
   text-shadow: 4px 4px 4px black;
   &:hover {
     animation: jello 4s ease-in-out infinite;
@@ -45,7 +45,7 @@ button {
 
 label, h3 {
   font-size: 30px;
-  padding-right: 10px;
+  padding-bottom: 15px;
 }
 
 .render-body {
@@ -54,4 +54,27 @@ label, h3 {
 
 p {
   font-size: 25px;
+}
+
+
+input {
+  width: 250px;
+  height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  background-color: #E9E1CB;
+  margin-bottom: 50px;
+  border-radius: 5px;
+}
+select {
+  background-color: rgba(0, 0, 0 , 0.5 );
+  color: #E9E1CB;
+  outline: #E9E1CB;
+  margin-bottom: 50px;
+  width: 90%;
+  height: 30px;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
