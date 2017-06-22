@@ -12,39 +12,23 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 
 | Description  | Input Example | Output Example |
 | ------------- | ------------- | ------------- |
-| 1. The program allows patrons to enter their information and the program will calculate their bmi.  | Name, Gender, Weight, Height | --  |
-| 2. The program allows patrons to order a drink.  | --   | --  |
+| 1. The program allows patrons to enter their information and view their meter.  | Name | "Chet Manly"  |
+| 2. The program allows patrons to order drinks and food.  | PBR  | PBR |
+| 3. The program increases patron BAC based on drinks ordered.  | --   | --  |
+| 4. The program decreases patron BAC based on food/water ordered.  | --   | --  |
+| 5. The program allows bartenders to be added to the database.  | --   | --  |
+| 6. The program allows patrons to be added to bartenders.  | --   | --  |
+| 7. The program allows users to add drinks and food to the menu.  | --   | --  |
+| 8. The program allows users to view a full bar menu with all drinks and food.  | --   | --  |
 
 ## Wishlist Specifications
 
 (C-SHARP)
-1. CHANGE ADD* to orders table method to account for all connected tables
+
+1. Add total of customer tab
 2. Make BAC decrease over time.
-3. Add "I drank water" button/order food button to decrease BAC (can be included in #1)
-4. Add total of customer tab
-5. Fix bartender, show patronBAC thingamajig. GRRRRRRR (see css #1)
-6. Make instances more accurate (turn to decimal) (maybe make formula more accurate too)
-7. Remove success page (can probably make dictionary just like the Get["/whatever/whatever"])
-
-(CSS)
-
-1. Individual bartender page (bartender.cshtml) - list of their patrons WITH METERS MAYBE ZOMG (that part is c#... dammit)
-2. Style links differently than regular text. Underline or different color?
-
-NOTES 6/21
-Nav bar is super nice, but only shows on a few pages. Should show on all but home page, maybe even home page as well. Not sure what's wrong.
-Pages missing from:
-1.  Success (gonna try to change success page routing)
-2.  bartender.cshtml
-3.  bar_menu.cshtml
-4.  patron_add.cshtml
-5.  patron.cshtml
-6.  drinks_add.cshtml
-7.  food_add.cshtml
-Dropdown lists on patron page could use some styling.
-List of patrons on patrons.cshtml is all mashed together.
-When clicking on link to recently created patron it leads to a broken page due to null values (probably the error we were having with the 4join table)
-Wow I'm tired and I cant think of anything else.
+3. Fix bartender, show patronBAC thingamajig. GRRRRRRR
+4. Make instances more accurate (turn to decimal) (maybe make formula more accurate too)
 
 ## Setup/Installation Requirements
 
