@@ -12,23 +12,20 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 
 | Description  | Input Example | Output Example |
 | ------------- | ------------- | ------------- |
-| 1. The program allows patrons to enter their information and view their meter.  | Name | "Chet Manly"  |
-| 2. The program allows patrons to order drinks and food.  | PBR  | PBR |
-| 3. The program increases patron BAC based on drinks ordered.  | --   | --  |
-| 4. The program decreases patron BAC based on food/water ordered.  | --   | --  |
-| 5. The program allows bartenders to be added to the database.  | --   | --  |
-| 6. The program allows patrons to be added to bartenders.  | --   | --  |
-| 7. The program allows users to add drinks and food to the menu.  | --   | --  |
-| 8. The program allows users to view a full bar menu with all drinks and food.  | --   | --  |
+| The program allows patrons to enter their information and view their meter.  | Name | "Chet Manly"  |
+| The program allows patrons to order drinks and food.  | PBR  | PBR |
+| The program increases patron BAC based on drinks ordered.  | .00  | .03123 |
+| The program allows bartenders to be added to the database.  | Name | Horace |
+| The program allows patrons to be added to bartenders.  | Horace | Horace - David |
+| The program allows users to add drinks and food to the menu.  | Burger | Burger |
+| The program allows patrons to view a full bar menu with all drinks and food.  | Burgers, Fries, etc  | Burgers, Fries, etc |
+| The program allows patrons to view a total tab.  | 2 items ordered  | $8 |
 
 ## Wishlist Specifications
 
 (C-SHARP)
-
-1. Add total of customer tab
-2. Make BAC decrease over time.
-3. Fix bartender, show patronBAC thingamajig. GRRRRRRR
-4. Make instances more accurate (turn to decimal) (maybe make formula more accurate too)
+1. Make BAC decrease over time/when food is ordered.
+2. Fix bartender, show patronBAC thingamajig. GRRRRRRR
 
 ## Setup/Installation Requirements
 

@@ -4,7 +4,7 @@
 
 <form>
   <h2>BAR MENU</h2>
-  <div id="col-1">
+
     @if (@Model["allDrinks"].Count != 0)
     {
       <p>DRINKS:</p>
@@ -19,9 +19,9 @@
     {
       <p>NO DRINKS FOR YOU</p>
     }
-  </div>
 
-  <div id="col-2">
+
+
     @if (@Model["allFood"].Count != 0)
     {
       <p>FOOD:</p>
@@ -40,7 +40,7 @@
   {
     <p>NO FOOD FOR YOU</p>
   }
-  </div>
+
 </form>
 <a href="/drinks/add"><button type="submit" class="btn btn-submit">New Drink</button></a>
 <a href="/food/add"><button type="submit" class="btn btn-submit">New Food</button></a>
