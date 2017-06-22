@@ -16,6 +16,15 @@
   }
 }
 
+@keyframes links {
+  from {
+    text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 25px #FF1177, 0 0 15px #FF1177, 0 0 20px #FF1177;
+  }
+  to {
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 6px #fff, 0 0 15px #FF1177, 0 0 10px #FF1177, 0 0 30px #FF1177, 0 0 20px #FF1177, 0 0 30px #FF1177;
+  }
+}
+
 @keyframes jello {
   from, 11.1%, to {
     transform: none;

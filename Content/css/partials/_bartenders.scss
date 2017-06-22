@@ -1,4 +1,16 @@
 .bartenders-button {
   width: auto;
   margin-top: 100px;
+  min-width: 200px;
+  @include medium {
+    font-size: 20px;
+  }
+}
+
+#bar-buttons {
+  @include medium {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    };
 }

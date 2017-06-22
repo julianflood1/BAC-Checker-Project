@@ -88,6 +88,9 @@ html, body {
     align-items: center;
     position: fixed;
     bottom: 1100px; }
+    @media (max-width: 600px) {
+      .navigation .nav-bar {
+        display: none; } }
 
 ul#nav-list {
   display: flex;
@@ -100,7 +103,8 @@ li a {
   list-style-type: none;
   text-decoration: none;
   color: #E9E1CB;
-  align-items: space-around; }
+  align-items: space-around;
+  animation: links 1s ease-in-out infinite alternate; }
 
 form {
   border: 2px solid #E9E1CB;
@@ -150,6 +154,13 @@ form {
   align-items: center;
   padding: 30px;
   margin-bottom: 200px; }
+  @media (max-width: 600px) {
+    .main-content {
+      border: none;
+      width: 100%;
+      margin: -50px;
+      height: 100%;
+      padding: 0; } }
 
 .renderBody {
   display: flex;
@@ -167,7 +178,17 @@ form {
 
 .bartenders-button {
   width: auto;
-  margin-top: 100px; }
+  margin-top: 100px;
+  min-width: 200px; }
+  @media (max-width: 1286px) {
+    .bartenders-button {
+      font-size: 20px; } }
+
+@media (max-width: 1286px) {
+  #bar-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 60%; } }
 
 h1 {
   -webkit-animation: neon 1s ease-in-out infinite alternate;
@@ -193,6 +214,13 @@ h1 {
   align-items: center;
   flex-direction: column; }
 
+#food-description {
+  width: 400px;
+  background-color: #E9E1CB; }
+
+a {
+  animation: links 1s ease-in-out infinite alternate; }
+
 button {
   width: 200px;
   height: 70px;
@@ -201,10 +229,10 @@ button {
   font-size: 30px;
   border-radius: 10px;
   color: #E9E1CB;
-  font-weight: 700;
   background-color: rgba(175, 34, 105, 0.5);
   font-family: Pacifico;
-  text-shadow: 4px 4px 4px black; }
+  text-shadow: 4px 4px 4px black;
+  outline: none; }
   button:hover {
     animation: jello 4s ease-in-out infinite;
     filter: blur(3px); }
@@ -227,7 +255,8 @@ input {
   font-size: 25px;
   background-color: #E9E1CB;
   margin-bottom: 50px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  outline: none; }
 
 select {
   background-color: rgba(0, 0, 0, 0.5);
@@ -240,6 +269,16 @@ select {
   margin-left: 10px;
   margin-right: 10px; }
 
+select:active, select:hover {
+  background: transparent; }
+
+#bold-list {
+  font-weight: bold;
+  font-size: 20px; }
+
+li {
+  padding: 20px; }
+
 @keyframes neon {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177; }
@@ -250,6 +289,11 @@ select {
     box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fcb724, 0 0 70px #fcb724, 0 0 80px #fcb724, 0 0 100px #fcb724, 0 0 150px #fcb724; }
   to {
     box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fcb724, 0 0 35px #fcb724, 0 0 40px #fcb724, 0 0 50px #fcb724, 0 0 75px #fcb724; } }
+@keyframes links {
+  from {
+    text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 25px #FF1177, 0 0 15px #FF1177, 0 0 20px #FF1177; }
+  to {
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 6px #fff, 0 0 15px #FF1177, 0 0 10px #FF1177, 0 0 30px #FF1177, 0 0 20px #FF1177, 0 0 30px #FF1177; } }
 @keyframes jello {
   from, 11.1%, to {
     transform: none; }

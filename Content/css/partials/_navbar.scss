@@ -1,3 +1,4 @@
+
 .navigation {
   width: 100%;
   display: flex;
@@ -14,6 +15,9 @@
     align-items: center;
     position: fixed;
     bottom: 1100px;
+    @include small {
+      display: none;
+    }
   }
 }
 
@@ -24,10 +28,12 @@
   justify-content: space-around;
 }
 
+
 li a {
   font-size: 22px;
   list-style-type: none;
   text-decoration: none;
   color: #E9E1CB;
-    align-items: space-around;
+  align-items: space-around;
+  animation: links 1s ease-in-out infinite alternate;
 }
