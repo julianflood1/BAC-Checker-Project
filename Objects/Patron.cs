@@ -390,38 +390,35 @@ namespace BloodAlcoholContent.Objects
       return fixedPatronBAC;
     }
 
-    // public decimal GetPatronTabTotal()
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("SELECT SUM(drinks.cost), SUM(foods.cost) FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) JOIN foods ON (orders.foods_id = foods.id) WHERE patrons.id = @PatronId;", conn);
-    //
-    //   SqlParameter patronIdParameter = new SqlParameter();
-    //   patronIdParameter.ParameterName = "@PatronId";
-    //   patronIdParameter.Value = this.GetId().ToString();
-    //
-    //   cmd.Parameters.Add(patronIdParameter);
-    //
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   string totalFoodCost = null;
-    //   string totalDrinkCost = null;
-    //   while(rdr.Read())
-    //   {
-    //     totalFoodCost = Convert.ToString(rdr.GetDecimal(0));
-    //     totalDrinkCost = Convert.ToString(rdr.GetDecimal(1));
-    //   }
-    //   if (rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if (conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    //   string totalTab = totalFoodCost + totalDrinkCost;
-    //   return totalTab;
-    // }
+    public decimal GetPatronTabTotal()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT SUM(drinks.cost) + SUM(foods.cost) FROM patrons JOIN orders ON (patrons.id = orders.patrons_id) JOIN drinks ON (orders.drinks_id = drinks.id) JOIN foods ON (orders.foods_id = foods.id) WHERE patrons.id = @PatronId;", conn);
+
+      SqlParameter patronIdParameter = new SqlParameter();
+      patronIdParameter.ParameterName = "@PatronId";
+      patronIdParameter.Value = this.GetId().ToString();
+
+      cmd.Parameters.Add(patronIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      decimal totalTab = 0.00M;
+      while(rdr.Read())
+      {
+        totalTab = rdr.GetDecimal(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return totalTab;
+    }
   }
 }
