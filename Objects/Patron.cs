@@ -99,7 +99,6 @@ namespace BloodAlcoholContent.Objects
 
       TimeSpan timeDiff = userDateTime - this.GetDateTimeNow();
       double fixedTimeDiff = Math.Round(timeDiff.TotalMinutes);
-      Console.WriteLine(fixedTimeDiff);
       return fixedTimeDiff;
     }
 
@@ -167,7 +166,6 @@ namespace BloodAlcoholContent.Objects
       cmd.Parameters.Add(weightParam);
       cmd.Parameters.Add(heightParam);
       cmd.Parameters.Add(bmiParam);
-      // Console.WriteLine("this.GetBMI in Save: " + bmiParam.Value);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 

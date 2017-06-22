@@ -152,7 +152,6 @@ namespace BloodAlcoholContentTests
       testPatron.SetDateTimeNow();
       double number = Math.Round((testDateTime2 - testPatron.GetDateTimeNow()).TotalMinutes);
 
-      Console.WriteLine(testPatron.GetDateTimeNow());
       Assert.Equal(number,  testPatron.GetTimeDifference(testDateTime2));
     }
   }
