@@ -56,13 +56,26 @@
     </div>
   </form>
 </div>
-<p>This is what I've drinkity drank so far:</p>
-<ul>
-  @foreach (var patronDrinks in @Model["patronDrinks"])
-  {
-    <li>@patronDrinks.GetName()</li>
-  }
+<p>My tab:</p>
+@if (@Model["patronDrinks"].Count != 0)
+{
+  <ul>
+    @foreach (var patronDrinks in @Model["patronDrinks"])
+    {
+      <li>@patronDrinks.GetName()</li>
+    }
+  </ul>
+}
+@if (@Model["patronFood"].Count != 0)
+{
+  <ul>
+    @foreach (var patronFood in @Model["patronFood"])
+    {
+      <li>@patronFood.GetFoodType()</li>
+    }
 </ul>
+@*<p><strong>Tab Total: $@Model["patron"].GetPatronTabTotal()</strong></p>*@
+}
 
 <div id="back-button">
   <a href="/"><button type="click">Home</button></a>
