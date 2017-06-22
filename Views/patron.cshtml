@@ -9,9 +9,18 @@
   }
 }
 
-<div class="progress">
+@if (@Model["patronDrinks"].Count !=0)
+{
+  <div class="progress">
   <span class="progress-bar"><span class="progress-in" style="width: @ConvertToPercentile(@Model["patron"].GetPatronBAC())%"></span></span>
-</div>
+  </div>
+} else
+{
+  <p>YOU HAVEN'T HAD ANY DRINKS. TIME TO TAKE A SHOT!</p>
+  <div class="progress">
+  <span class="progress-bar"><span class="progress-in" style="width: 0%"></span></span>
+  </div>
+}
 
 
 <p>Howdy, my name is @Model["patron"].GetName().</p>
@@ -28,14 +37,14 @@
 <form id="main-form" action='/patrons/@Model["patron"].GetId()/add_order' method="post">
   <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
   <select name="drink-id">
-    <option value="no-foods" selected>Just Food Plz</option>
+    <option value="no-foods" selected>No Drinks Plz</option>
     @foreach (var chosenDrink in @Model["allDrinks"])
     {
       <option value="@chosenDrink.GetId()">@chosenDrink.GetName() | ABV @chosenDrink.GetABV()%, Cost $@chosenDrink.GetCost()</option>
     }
   </select>
   <select name="food-id">
-    <option value="no-drinks" selected>Just Drinks Plz</option>
+    <option value="no-drinks" selected>No Food Plz</option>
     @foreach (var chosenFood in @Model["allFood"])
     {
       <option value="@chosenFood.GetId()">@chosenFood.GetFoodType() | Cost $@chosenFood.GetCost()</option>

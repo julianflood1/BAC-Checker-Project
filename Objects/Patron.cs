@@ -268,29 +268,6 @@ namespace BloodAlcoholContent.Objects
       return drinks;
     }
 
-    public void AddDrinkToOrdersTable(Drink newDrink)
-    {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
-
-      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, drinks_id) VALUES (@PatronId, @DrinkId);", conn);
-      SqlParameter patronIdParameter = new SqlParameter();
-      patronIdParameter.ParameterName = "@PatronId";
-      patronIdParameter.Value = this.GetId();
-      cmd.Parameters.Add(patronIdParameter);
-
-      SqlParameter drinkIdParameter = new SqlParameter();
-      drinkIdParameter.ParameterName = "@DrinkId";
-      drinkIdParameter.Value = newDrink.GetId();
-      cmd.Parameters.Add(drinkIdParameter);
-
-      cmd.ExecuteNonQuery();
-
-      if (conn != null)
-      {
-        conn.Close();
-      }
-    }
 
     public List<Food> GetFood()
     {
@@ -328,30 +305,112 @@ namespace BloodAlcoholContent.Objects
       }
       return foods;
     }
-
-    public void AddFoodToOrdersTable(Food newFood)
+    public void AddDrinkAndFoodToOrdersTable(Drink newDrink = null, Food newFood = null)
     {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
-
-      SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, foods_id) VALUES (@PatronId, @FoodId);", conn);
-      SqlParameter patronIdParameter = new SqlParameter();
-      patronIdParameter.ParameterName = "@PatronId";
-      patronIdParameter.Value = this.GetId();
-      cmd.Parameters.Add(patronIdParameter);
-
-      SqlParameter foodIdParameter = new SqlParameter();
-      foodIdParameter.ParameterName = "@FoodId";
-      foodIdParameter.Value = newFood.GetId();
-      cmd.Parameters.Add(foodIdParameter);
-
-      cmd.ExecuteNonQuery();
-
-      if (conn != null)
+      if (newFood == null)
       {
-        conn.Close();
+        SqlConnection conn = DB.Connection();
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, drinks_id, foods_id) VALUES (@PatronId, @DrinkId, @FoodId);", conn);
+        SqlParameter patronIdParameter = new SqlParameter();
+        patronIdParameter.ParameterName = "@PatronId";
+        patronIdParameter.Value = this.GetId();
+        cmd.Parameters.Add(patronIdParameter);
+
+        SqlParameter drinkIdParameter = new SqlParameter();
+        drinkIdParameter.ParameterName = "@DrinkId";
+        drinkIdParameter.Value = newDrink.GetId();
+        cmd.Parameters.Add(drinkIdParameter);
+
+        SqlParameter foodIdParameter = new SqlParameter();
+        foodIdParameter.ParameterName = "@FoodId";
+        foodIdParameter.Value = 0;
+        cmd.Parameters.Add(foodIdParameter);
+
+        cmd.ExecuteNonQuery();
+
+        if (conn != null)
+        {
+          conn.Close();
+        }
+      }
+      if (newDrink == null)
+      {
+        SqlConnection conn = DB.Connection();
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, drinks_id, foods_id) VALUES (@PatronId, @DrinkId, @FoodId);", conn);
+        SqlParameter patronIdParameter = new SqlParameter();
+        patronIdParameter.ParameterName = "@PatronId";
+        patronIdParameter.Value = this.GetId();
+        cmd.Parameters.Add(patronIdParameter);
+
+        SqlParameter foodIdParameter = new SqlParameter();
+        foodIdParameter.ParameterName = "@FoodId";
+        foodIdParameter.Value = newFood.GetId();
+        cmd.Parameters.Add(foodIdParameter);
+
+        SqlParameter drinkIdParameter = new SqlParameter();
+        drinkIdParameter.ParameterName = "@DrinkId";
+        drinkIdParameter.Value = 0;
+        cmd.Parameters.Add(drinkIdParameter);
+
+        cmd.ExecuteNonQuery();
+
+        if (conn != null)
+        {
+          conn.Close();
+        }
       }
     }
+    // public void AddDrinkAndFoodToOrdersTable(Drink newDrink)
+    // {
+    //   SqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, drinks_id) VALUES (@PatronId, @DrinkId);", conn);
+    //   SqlParameter patronIdParameter = new SqlParameter();
+    //   patronIdParameter.ParameterName = "@PatronId";
+    //   patronIdParameter.Value = this.GetId();
+    //   cmd.Parameters.Add(patronIdParameter);
+    //
+    //   SqlParameter drinkIdParameter = new SqlParameter();
+    //   drinkIdParameter.ParameterName = "@DrinkId";
+    //   drinkIdParameter.Value = newDrink.GetId();
+    //   cmd.Parameters.Add(drinkIdParameter);
+    //
+    //   cmd.ExecuteNonQuery();
+    //
+    //   if (conn != null)
+    //   {
+    //     conn.Close();
+    //   }
+    // }
+    //
+    // public void AddFoodToOrdersTable(Food newFood)
+    // {
+    //   SqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   SqlCommand cmd = new SqlCommand("INSERT INTO orders (patrons_id, foods_id) VALUES (@PatronId, @FoodId);", conn);
+    //   SqlParameter patronIdParameter = new SqlParameter();
+    //   patronIdParameter.ParameterName = "@PatronId";
+    //   patronIdParameter.Value = this.GetId();
+    //   cmd.Parameters.Add(patronIdParameter);
+    //
+    //   SqlParameter foodIdParameter = new SqlParameter();
+    //   foodIdParameter.ParameterName = "@FoodId";
+    //   foodIdParameter.Value = newFood.GetId();
+    //   cmd.Parameters.Add(foodIdParameter);
+    //
+    //   cmd.ExecuteNonQuery();
+    //
+    //   if (conn != null)
+    //   {
+    //     conn.Close();
+    //   }
+    // }
     public decimal GetPatronBAC()
     {
       SqlConnection conn = DB.Connection();

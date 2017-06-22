@@ -84,8 +84,8 @@ namespace BloodAlcoholContentTests
       Drink testDrink2 = new Drink("Car Bomb", "Mixed", 40, 12, 3);
       testDrink2.Save();
 
-      testPatron.AddDrinkToOrdersTable(testDrink1);
-      testPatron.AddDrinkToOrdersTable(testDrink2);
+      testPatron.AddDrinkAndFoodToOrdersTable(testDrink1);
+      testPatron.AddDrinkAndFoodToOrdersTable(testDrink2);
 
       List<Drink> savedDrinks = testPatron.GetDrinks();
       List<Drink> testList = new List<Drink> {testDrink1, testDrink2};
@@ -109,7 +109,7 @@ namespace BloodAlcoholContentTests
       testPatron.Save();
       testDrink.Save();
 
-      testPatron.AddDrinkToOrdersTable(testDrink);
+      testPatron.AddDrinkAndFoodToOrdersTable(testDrink);
 
       decimal testPatronBAC = testPatron.GetPatronBAC();
 
@@ -131,10 +131,10 @@ namespace BloodAlcoholContentTests
       Food testFood2 = new Food("BEEF", "RAW. MEAT. EAT.", 12, 2);
       testFood2.Save();
 
-      testPatron.AddDrinkToOrdersTable(testDrink);
-      testPatron.AddDrinkToOrdersTable(testDrink2);
-      testPatron.AddFoodToOrdersTable(testFood);
-      testPatron.AddFoodToOrdersTable(testFood2);
+      testPatron.AddDrinkAndFoodToOrdersTable(testDrink, testFood);
+      testPatron.AddDrinkAndFoodToOrdersTable(testDrink2, testFood2);
+      // testPatron.AddDrinkAndFoodToOrdersTable(testFood);
+      // testPatron.AddDrinkAndFoodToOrdersTable(testFood2);
 
       decimal testPatronBAC = testPatron.GetPatronBAC();
       decimal expectedBAC = Math.Round((((Convert.ToDecimal(testDrink.GetABV())/100M * testDrink.GetInstances()) * 5.14M)/(testPatron.GetWeight() * .73M) - (.015M * 1M) - ((testFood.GetBACRemoval() + testFood2.GetBACRemoval()) / 100)), 6);
