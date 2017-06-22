@@ -13,8 +13,9 @@
     border: 1px solid #E9E1CB;
     display: flex;
     align-items: center;
-    position: fixed;
-    bottom: 1100px;
+    position: absolute;
+    top: 50px;
+    // bottom: 1100px;
     @include small {
       display: none;
     }
