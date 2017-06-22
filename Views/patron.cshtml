@@ -56,9 +56,9 @@
     </div>
   </form>
 </div>
-<p>My tab:</p>
 @if (@Model["patronDrinks"].Count != 0)
 {
+  <p>Drinks I've Ordered:</p>
   <ul>
     @foreach (var patronDrinks in @Model["patronDrinks"])
     {
@@ -68,6 +68,7 @@
 }
 @if (@Model["patronFood"].Count != 0)
 {
+  <p>Food I've Ordered:</p>
   <ul>
     @foreach (var patronFood in @Model["patronFood"])
     {
@@ -77,6 +78,19 @@
 <p><strong>Tab Total: $@Model["patron"].GetPatronTabTotal()</strong></p>
 }
 
-<div id="back-button">
-  <a href="/"><button type="click">Home</button></a>
-</div>
+
+@if (@Model["patronBartender"].Count != 0)
+{
+    @foreach (var patronBartender in @Model["patronBartender"])
+    {
+      <p>@patronBartender.GetName() is serving you today!</p>
+    }
+}
+
+
+<p>DELETE THIS PATRON<small> (Be Careful, this is irreversable!)</small></p>
+<form action="/patrons/@Model["patron"].GetId()/delete" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input name="patron-id" type="hidden" value='@Model["patron"].GetId()'>
+  <button type="submit" name="delete">DELETE</button>
+</form>
