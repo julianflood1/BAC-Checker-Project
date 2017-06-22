@@ -45,13 +45,13 @@ namespace BloodAlcoholContent
         if (testDrinkInput != "no-foods")
         {
           Drink drink = Drink.Find(Request.Form["drink-id"]);
-          patron.AddDrinkToOrdersTable(drink);
+          patron.AddDrinkAndFoodToOrdersTable(drink);
         }
         string testFoodInput = Request.Form["food-id"];
         if (testFoodInput != "no-drinks")
         {
           Food food = Food.Find(Request.Form["food-id"]);
-          patron.AddFoodToOrdersTable(food);
+          patron.AddDrinkAndFoodToOrdersTable(null, food);
         }
         return View["success.cshtml"];
       };

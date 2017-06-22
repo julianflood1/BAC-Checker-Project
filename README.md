@@ -29,7 +29,7 @@ _A lighthearted app to check your Blood Alcohol Content. Two members of this tea
 (CSS)
 
 1. Individual bartender page (bartender.cshtml) - list of their patrons WITH METERS MAYBE ZOMG (that part is c#... dammit)
-
+2. Style links differently than regular text. Underline or different color?
 
 NOTES 6/21
 Nav bar is super nice, but only shows on a few pages. Should show on all but home page, maybe even home page as well. Not sure what's wrong.
