@@ -2,40 +2,45 @@
   Layout="Shared/_Layout.cshtml";
 }
 
-<h3>BAR MENU</h3>
-@if (@Model["allDrinks"].Count != 0)
-{
-  <p>DRINKS:</p>
-  <ul>
-    @foreach (var drink in @Model["allDrinks"])
+<form>
+  <h2>BAR MENU</h2>
+  <div id="col-1">
+    @if (@Model["allDrinks"].Count != 0)
     {
-      <li class="bold-list">@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</li>
+      <p>DRINKS:</p>
+      <ul>
+        @foreach (var drink in @Model["allDrinks"])
+        {
+          <li class="bold-list">@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</li>
+        }
+      </ul>
     }
-  </ul>
-}
-else
-{
-  <p>NO DRINKS FOR YOU</p>
-}
-
-@if (@Model["allFood"].Count != 0)
-{
-  <p>FOOD:</p>
-  <ul>
-    @foreach (var food in @Model["allFood"])
+    else
     {
-      <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
-        <ul>
-          <li>@food.GetDescription()</li>
-        </ul>
-      </li>
+      <p>NO DRINKS FOR YOU</p>
     }
-  </ul>
-}
-else
-{
-  <p>NO FOOD FOR YOU</p>
-}
+  </div>
 
+  <div id="col-2">
+    @if (@Model["allFood"].Count != 0)
+    {
+      <p>FOOD:</p>
+      <ul>
+        @foreach (var food in @Model["allFood"])
+        {
+          <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
+            <ul>
+              <li>@food.GetDescription()</li>
+            </ul>
+          </li>
+        }
+      </ul>
+    }
+  else
+  {
+    <p>NO FOOD FOR YOU</p>
+  }
+  </div>
+</form>
 <a href="/drinks/add"><button type="submit" class="btn btn-submit">New Drink</button></a>
 <a href="/food/add"><button type="submit" class="btn btn-submit">New Food</button></a>
