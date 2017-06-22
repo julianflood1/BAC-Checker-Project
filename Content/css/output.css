@@ -14,6 +14,21 @@ html, body {
   margin: 0;
   padding: 0; }
 
+#food-p {
+  font-size: 10px; }
+
+h2 {
+  font-size: 40px; }
+
+#menu-buttons {
+  display: flex; }
+
+#bar-menu-form {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  justify-content: center; }
+
 .flex-buttons {
   display: flex;
   justify-content: space-around;
@@ -35,6 +50,9 @@ html, body {
 .main-content h3 {
   text-align: center;
   font-size: 25px; }
+  @media (max-width: 600px) {
+    .main-content h3 {
+      padding: 0px 8px; } }
 
 #select {
   padding-top: 15%;
@@ -199,6 +217,10 @@ form {
     flex-direction: column;
     width: 60%; } }
 
+@media (max-width: 600px) {
+  p {
+    text-align: center; } }
+
 h1 {
   -webkit-animation: neon 1s ease-in-out infinite alternate;
   -moz-animation: neon 1s ease-in-out infinite alternate;
@@ -277,9 +299,6 @@ select {
   font-size: 20px;
   margin-left: 10px;
   margin-right: 10px; }
-
-select:active, select:hover {
-  background: transparent; }
 
 #bold-list {
   font-weight: bold;

@@ -23,6 +23,9 @@
 h3 {
   text-align: center;
   font-size: 25px;
+  @include small {
+      padding: 0px 8px;
+    }
   }
 }
 

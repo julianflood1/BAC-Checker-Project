@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/output.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script src="scripts/scripts.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Drunk Tank</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>Drunk Tank</h1>
+        </div>
+          <h2>BAR MENU</h2>
+
+          <form id="bar-menu-form">
+
+          <div id="drinks">
+            @if (@Model["allDrinks"].Count != 0)
+            {
+              <p>DRINKS:</p>
+              <ul>
+                @foreach (var drink in @Model["allDrinks"])
+                {
+                  <li class="bold-list">@drink.GetName() | ABV: @drink.GetABV(), Cost: $@drink.GetCost()</li>
+                }
+              </ul>
+            }
+            else
+            {
+              <p>NO DRINKS FOR YOU</p>
+            }
+          </div>
+
+          <div id='food'>
+            @if (@Model["allFood"].Count != 0)
+            {
+              <p>FOOD:</p>
+              <ul>
+                @foreach (var food in @Model["allFood"])
+                {
+                  <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
+                      <p id="food-p">@food.GetDescription()</p>
+                  </li>
+                }
+              </ul>
+            }
+          else
+          {
+            <p>NO FOOD FOR YOU</p>
+          }
+        </div>
+</form>
+    <div id='menu-buttons'>
+        <a href="/drinks/add"><button type="submit" class="btn btn-submit">New Drink</button></a>
+        <a href="/food/add"><button type="submit" class="btn btn-submit">New Food</button></a>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>
