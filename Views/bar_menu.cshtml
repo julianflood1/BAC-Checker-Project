@@ -26,9 +26,7 @@
         @foreach (var food in @Model["allFood"])
         {
           <li class="bold-list">@food.GetFoodType() | Cost: $@food.GetCost()
-            <ul>
-              <li>@food.GetDescription()</li>
-            </ul>
+              <p id="food-p">@food.GetDescription()</p>
           </li>
         }
       </ul>
