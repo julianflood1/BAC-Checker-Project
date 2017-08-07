@@ -8,6 +8,8 @@
 
 _A lighthearted app to check your Blood Alcohol Content. Two members of this team are in the C# course, and three are in CSS/Design. This app will combine the knowledge of both groups, and allow us to practice communicating with collaborators with different areas of expertise._
 
+![drunk-tank copy](https://user-images.githubusercontent.com/24885660/29031880-74efe68e-7b44-11e7-94e0-61a1455f16c4.png)
+
 ## Program Specifications
 
 | Description  | Input Example | Output Example |
